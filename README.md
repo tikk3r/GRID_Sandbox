@@ -6,7 +6,7 @@ A 'Sandbox' containing a version-controlled copy of the scripts executed by LOFA
 The base sandbox (master branch) is for testing purposes. It downloads the data attached to the PiCaS job token, and executes
 
 ```bash
-ls $WORKDIR/Downloads 
+ls $WORKDIR/Input
 ```
 
 to verify that the worker node interaction is sane. 
