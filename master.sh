@@ -79,7 +79,7 @@ $OLD_PYTHON update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${T
 run_pipeline
 stop_profile
 
-process_output output
+#process_output output
 
 
 #####################
@@ -87,7 +87,7 @@ process_output output
 #
 ######################
 
-tarlogs 
+#tarlogs 
 
 # - step3 finished check contents
 
