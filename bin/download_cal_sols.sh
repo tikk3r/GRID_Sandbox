@@ -9,7 +9,7 @@ function download_cals(){
   then
     tar -xvf cal_solutions.tar
  else
-    exit 31 #exit 31=> numpy solutions do not get downloaded
+    exit 23 #exit 23=> numpy solutions do not get downloaded
  fi
 
 }
