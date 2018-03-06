@@ -38,9 +38,9 @@ for setupfile in `ls bin/* `; do source ${setupfile} ; done
 
 setup_LOFAR_env $LOFAR_PATH      ##Imported from setup_LOFAR_env.sh
 
-if [[ -z "$PARSET" ]]; then
-    ls "$PARSET"
-    echo "not found"
+if [[ -z "$SCRIPT" ]]; then
+    ls "$SCRIPT"
+    echo "Script not found"
     exit 3  #exit 3=> Parset doesn't exist                                                               
 fi
 
