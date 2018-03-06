@@ -12,9 +12,9 @@ function replace_dirs(){
  sed -i "s?PREFACTOR_SCRATCH_DIR?$(pwd)?g" pipeline.cfg
  echo "Replacing "$PWD" in the prefactor parset"
 
- if [[ ! -z $( echo $PIPELINE |grep targ ) ]]
+ if [[ ! -z $( echo $PIPELINE_STEP |grep targ ) ]]
   then
-   pipelinetype=$PIPELINE
+   pipelinetype=$PIPELINE_STEP
   elif [[ ! -z $( echo $PARSET | grep Initial-Subtract ) ]]
    then
     pipelinetype="pref.insub"

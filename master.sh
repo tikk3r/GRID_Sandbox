@@ -62,9 +62,9 @@ echo "---------------------------"
 echo "Starting Data Retrieval"
 echo "---------------------------"
 
-setup_downloads $PIPELINE
+setup_downloads $PIPELINE_STEP
 
-download_files srm.txt $PIPELINE
+download_files srm.txt $PIPELINE_STEP
 
 echo "Download finished, list contents"
 ls -l $PWD
@@ -77,7 +77,7 @@ then
  download_cals $CAL_OBSID
 fi
 
-if [[ ! -z $( echo $PIPELINE |grep targ1 ) ]]
+if [[ ! -z $( echo $PIPELINE_STEP |grep targ1 ) ]]
   then
     runtaql 
 fi
