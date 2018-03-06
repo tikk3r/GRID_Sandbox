@@ -59,9 +59,9 @@ echo "---------------------------"
 echo "Starting Data Retrieval"
 echo "---------------------------"
 
-setup_downloads $PIPELINE
+setup_downloads $PIPELINE_STEP
 
-download_files srm.txt $PIPELINE
+download_files srm.txt $PIPELINE_STEP
 
 echo "Download finished, list contents"
 ls -l $PWD
