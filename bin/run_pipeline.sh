@@ -16,7 +16,6 @@ echo "Testing LOFAR Environment"
 which NDPPP
 NDPPP --version
 
-
 $OLD_PYTHON update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'processing_finished'
 
 }
