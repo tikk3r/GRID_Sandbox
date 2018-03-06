@@ -76,7 +76,7 @@ replace_dirs            #imported from bin/modify_files.sh
 
 start_profile
 
-$OLD_PYTHON update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running'
+python  update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running'
 run_pipeline
 stop_profile
 
