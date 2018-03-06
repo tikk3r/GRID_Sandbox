@@ -20,7 +20,7 @@ JOBDIR=${PWD}
 export OLD_PYTHON=$( which python)
 echo $OLD_PYTHON
 
-export PYTHONHOME=$(which python)
+export PYTHONHOME=/usr/local
 
 if [ -z "$TOKEN" ] || [  -z "$PICAS_USR" ] || [  -z "$PICAS_USR_PWD" ] || [  -z "$PICAS_DB" ]
  then
