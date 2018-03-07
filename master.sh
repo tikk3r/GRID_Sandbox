@@ -38,6 +38,7 @@ for setupfile in `ls bin/* `; do source ${setupfile} ; done
 ############################
 
 setup_LOFAR_env $LOFAR_PATH      ##Imported from setup_LOFAR_env.sh
+setup_DDF       $DDFACET_PATH
 
 #trap cleanup EXIT #This ensures the script cleans_up regardless of how and where it exits
 
