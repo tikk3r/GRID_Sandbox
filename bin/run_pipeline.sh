@@ -16,6 +16,7 @@ export PYTHONPATH=${RUNDIR}/ddf-pipeline/scripts/:$PYTHONPATH
 export PATH=${RUNDIR}/ddf-pipeline/scripts/:$PATH
 
 
+mv ${RUNDIR}/Input/prefactor/results/* ${RUNDIR}/
 
 ./ddf-pipeline/scripts/make_mslists.py
 python ddf-pipeline/scripts/pipeline.py ${PARSET} &> output
