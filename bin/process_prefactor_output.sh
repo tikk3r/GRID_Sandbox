@@ -13,9 +13,8 @@ function process_output(){
      echo "Pipeline did not finish, tarring work and run directories for re-run"
      RERUN_FILE=$OBSID"_"$STARTSB"prefactor_error.tar"
      echo "Will be  at gsiftp://gridftp.grid.sara.nl:2811/pnfs/grid.sara.nl/data/lofar/user/sksp/spectroscopy-migrated/prefactor/error_states"$RERUN_FILE
-#     tar -cf $RERUN_FILE prefactor/
-#     globus-url-copy file:`pwd`/$RERUN_FILE gsiftp://gridftp.grid.sara.nl:2811/pnfs/grid.sara.nl/data/lofar/user/sksp/spectroscopy-migrated/prefactor/error_states/$RERUN_FILE
-   if [[ $(hostname -s) != 'loui' ]]; then
+   
+if [[ $(hostname -s) != 'loui' ]]; then
     echo "removing RunDir"
     rm -rf ${RUNDIR}
    fi
