@@ -8,10 +8,16 @@ echo "Running Prefactor Parset"
 #python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running pipeline'
 #python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_progress.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} output ${PARSET} &
 
-which genericpipeline.py
-echo ${PARSET}
-ls pipeline.cfg
-genericpipeline.py ${PWD}/${PARSET} -d -c pipeline.cfg > output
+
+
+./ddf-pipeline/scripts/make_mslists.py
+python ddf-pipeline/scripts/pipeline.py ${PARSET} &> output
+
+cat *mslist* >>log
+cat output
+
+
+
 
 echo "Output file:"
 wc output

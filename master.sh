@@ -63,8 +63,6 @@ echo "---------------------------"
 echo "Starting Data Retrieval"
 echo "---------------------------"
 
-setup_downloads $PIPELINE_STEP
-
 download_files srm.txt $PIPELINE_STEP
 
 echo "Download finished, list contents"
@@ -72,17 +70,6 @@ ls -l $PWD
 du -hs $PWD
 
 replace_dirs            #imported from bin/modify_files.sh
-
-if [[ ! -z ${CAL_OBSID}  ]]
-then
- download_cals $CAL_OBSID
-fi
-
-if [[ ! -z $( echo $PIPELINE_STEP |grep targ1 ) ]]
-  then
-    runtaql 
-fi
-
 
 #########
 #Starting processing
@@ -94,7 +81,7 @@ run_pipeline
 
 stop_profile
 
-process_output output
+#process_output output
 
 
 #####################
