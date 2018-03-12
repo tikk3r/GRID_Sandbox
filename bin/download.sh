@@ -21,6 +21,7 @@ function download_files(){
     
  case "$2" in
     *SSD1*) echo "Downloading cal1 files"; dl_ssd1 $1 ;; 
+*DYSCO*) echo "Downloading cal1 files"; dl_ssd1 $1 ;; 
     *) echo "Unknown Pipeline, Will try to download anyways"; dl_generic $1 ;;
  esac
 } 
@@ -29,5 +30,6 @@ function download_files(){
 function dl_ssd1(){
     echo "Downloading files from distrib"
     dl_generic $1
+
 }
 
