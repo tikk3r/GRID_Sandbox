@@ -10,7 +10,7 @@ function replace_dirs(){
  if [ -d $(pwd)/Input/*ms  ]; then
     sed -i "s?msin\ .*?msin=$(pwd)/Input/*ms?g" ${PARSET}
  fi
- sed -i "s?msout\ .*?msout=$(pwd)/Output/results_${OBSID}.MS?g" ${PARSET}
+ sed -i "s?msout\ .*?msout=$(pwd)/Output/results_${OBSID}_SB${STARTSB}.MS?g" ${PARSET}
 
  echo "Pipeline Step is "$PIPELINE_STEP
  echo "Adding $OBSID and $PIPELINE_STEP into the tcollector tags"
