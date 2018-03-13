@@ -101,7 +101,7 @@ process_output output
 #
 ######################
 
-#make_plots
+make_plots
 #make_pie
 # - step3 finished check contents
 
