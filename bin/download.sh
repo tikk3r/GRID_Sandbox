@@ -62,6 +62,8 @@ function dl_cal1(){
    cd ${RUNDIR}
 
    echo "Download Done!"
+   echo "Contents of Input Directory:"
+   ls ${RUNDIR}/Input
 }
 
 function dl_cal2(){
