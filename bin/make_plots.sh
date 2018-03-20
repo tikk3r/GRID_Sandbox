@@ -18,8 +18,8 @@ xmlfile=$( find . -name "*statistics.xml" 2>/dev/null)
 cp piechart/autopie.py .
 ./autopie.py ${xmlfile} PIE_${OBSID}.png
 
-find . -name "PIE*png"|xargs tar -zcf pngs.tar.gz
-find . -name "*.png" -exec cp {} ${JOBDIR} \;
+find ${RUNDIR} -name "PIE*png"|xargs tar -zcf pngs.tar.gz
+find ${RUNDIR} -name "*.png" -exec cp {} ${JOBDIR} \;
 cp PIE_${OBSID}.png ${JOBDIR}
 cp ./prefactor/cal_results/*png ${JOBDIR}
 

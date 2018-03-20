@@ -80,8 +80,8 @@ function dl_cal2(){
 
 function dl_targ2(){
    cd ${RUNDIR}/Input
-    globus-url-copy gsiftp://gridftp.grid.sara.nl:2811/pnfs/grid.sara.nl/data/lofar/user/sksp/pipelines/SKSP/pref_targ1/${OBSID}/* ./  || { echo 'downloading failed' ; exit 21;  }
-   for i in `ls *gz`; do tar -zxf $i; done
+   sed 's?srm://srm.grid.sara.nl:8443?gsiftp://gridftp.grid.sara.nl:2811?g' $1 | xargs -I{} globus-url-copy -st 30 -fast -v {} $PWD || { echo 'downloading failed' ; exit 21;  }
+   for i in `ls *tar`; do tar -xf $i  && rm -rf $i; done
    mv prefactor/results/L* ${RUNDIR}/Input
    cd ${RUNDIR}
 }
