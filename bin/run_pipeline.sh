@@ -22,7 +22,7 @@ echo ""
 echo "--------------------------------"
 echo ""
 
-wsclean -name ${RUNDIR}/Output/Result.img -size 1024 1024 -mgain 0.65 -pol I -j 2 -mem 8.0 -weight briggs 0.0 -scale 0.00694 -niter 2000 ${RUNDIR}/Input/*
+wsclean -name ${RUNDIR}/Output/Result.img -size $WSCLEAN_SIZE $WSCLEAN_SIZE -mgain $WSCLEAN_MGAIN -pol $WSCLEAN_POL -j 6 -mem 20.0 -weight $WSCLEAN_WEIGHT -scale $WSCLEAN_SCALE -niter $WSCLEAN_NITER ${RUNDIR}/Input/*
 
 echo ""
 echo "--------------------------------"
