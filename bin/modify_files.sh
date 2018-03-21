@@ -22,7 +22,7 @@ function replace_dirs(){
    pipelinetype="pref.cal"
  fi
 
- sed -i "s?sortmap_target\.argument\.firstSB.*=?sortmap_target\.argument\.firstSB    = ${STARTSB}?g" *parset
+ sed -i "s?sortmap_target\.argument\.firstSB.*=?sortmap_target\.argument\.firstSB    = ${STARTSB}?g" ${PARSET}
 
  echo "Pipeline type is "$pipelinetype
  echo "Adding $OBSID and $pipelinetype into the tcollector tags"
