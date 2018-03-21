@@ -13,16 +13,16 @@ ls ${RUNDIR}/Input
 
 echo ""
 echo "Testing LOFAR Environment"
-which NDPPP
-NDPPP --version
+which wsclean
+wsclean --version
 
-echo "Running script $SCRIPT"
+echo "WSClean on the data in Input"
+ls ${RUNDIR}/Input/
 echo ""
 echo "--------------------------------"
 echo ""
-chmod a+x $SCRIPT
 
-./${SCRIPT}
+wsclean -name ${RUNDIR}/Output/Result.img -size 1024 1024 -mgain 0.65 -pol I -j 2 -mem 8.0 -weight briggs 0.0 -scale 0.00694 -niter 2000 ${RUNDIR}/Input/*
 
 echo ""
 echo "--------------------------------"
