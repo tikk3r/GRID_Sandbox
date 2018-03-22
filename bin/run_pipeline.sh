@@ -21,8 +21,13 @@ ls ${RUNDIR}/Input/
 echo ""
 echo "--------------------------------"
 echo ""
+export WSCLEAN_PARAMS=""
+while read -r a;  do export WSCLEAN_PARAMS="$a $WSCLEAN_PARAMS"; done < ${PARSET}
 
-wsclean -name ${RUNDIR}/Output/Result.img -size $WSCLEAN_SIZE $WSCLEAN_SIZE -mgain $WSCLEAN_MGAIN -pol $WSCLEAN_POL -j 6 -mem 20.0 -weight $WSCLEAN_WEIGHT -scale $WSCLEAN_SCALE -niter $WSCLEAN_NITER ${RUNDIR}/Input/*
+echo "RUNNING WSCLEAN WITH PARAMETERS: "
+echo ${WSCLEAN_PARAMS}
+echo ""
+wsclean -name ${RUNDIR}/Output/Result.img ${WSCLEAN_PARAMS}  ${RUNDIR}/Input/*
 
 echo ""
 echo "--------------------------------"
