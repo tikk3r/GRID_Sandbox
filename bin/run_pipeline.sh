@@ -22,7 +22,7 @@ echo ""
 echo "--------------------------------"
 echo ""
 export WSCLEAN_PARAMS=""
-while read -r a;  do export WSCLEAN_PARAMS="$a $WSCLEAN_PARAMS"; done < ${PARSET}
+while read -r param;  do export WSCLEAN_PARAMS="$WSCLEAN_PARAMS $param; done < ${PARSET}
 
 echo "RUNNING WSCLEAN WITH PARAMETERS: "
 echo ${WSCLEAN_PARAMS}
