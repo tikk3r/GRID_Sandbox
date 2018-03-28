@@ -20,6 +20,11 @@ JOBDIR=${PWD}
 OLD_PYTHON=$( which python)
 echo $OLD_PYTHON
 
+echo ""
+echo ""
+echo "Current rundir has:"
+ls
+echo ""
 if [ -z "$TOKEN" ] || [  -z "$PICAS_USR" ] || [  -z "$PICAS_USR_PWD" ] || [  -z "$PICAS_DB" ]
  then
   echo "One of Token=${TOKEN}, Picas_usr=${PICAS_USR}, Picas_db=${PICAS_DB} not set"; exit 1 
