@@ -6,7 +6,7 @@ function run_pipeline(){
 echo ""
 echo "Running Prefactor Parset"
 python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running pipeline'
-#python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_progress.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} output ${PARSET} &
+python ${RUNDIR}/update_token_progress.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} logs ${PARSET} &
 
 
 export PYTHONPATH=${RUNDIR}/ddf-pipeline/utils/:$PYTHONPATH
