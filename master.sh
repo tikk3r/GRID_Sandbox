@@ -107,6 +107,7 @@ ls -l ${SHRDIR}
 DSCRATCH=${SHRDIR}/l38s_${PIPELINE_STEP}_${OBSID}_${STARTSB}
 echo "create scratch on shared/lofar/oonk: " ${DSCRATCH}
 mkdir -p ${DSCRATCH}
+rm -rf ${DSCRATCH}/*
 echo ""
 echo "cp all local node WMS tranferred scripts to scratch and check with ls -l"
 cp -r ${DLOCAL}/* ${DSCRATCH}/
