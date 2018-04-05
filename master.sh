@@ -15,6 +15,34 @@
 #       finally copy the output to a (temporary) Grid Storage           #
 # ===================================================================== #
 
+# -----------------------------------------------------------------------
+# PSNC VERSION
+LOGFILE=/tmp/$USER.creamce.lofar.psnc.pl.log
+
+echo "start master" >> $LOGFILE
+ls -l >> $LOGFILE
+date >> $LOGFILE
+
+# SETTING PATH TO SINGULARITY IMAGE
+#sing_img_path=/cvmfs/softdrive.nl/oonk/SINGULARITY_IMAGES/C7_2_20_2_sml_env/lofar-2_20_2_c7_sml_env.simg
+sing_img_path=/mnt/lustre/inula/shared/lofar/oonk/lofar-2_20_2_c7_sml_env.simg
+#
+#
+echo "SINGULARITY IMAGE: ", ${sing_img_path}
+echo "CHECKING PATH OF SINGULARITY IMAGE (ls -l): "
+ls -l ${sing_img_path}
+echo ""
+#
+bpath=/var,/mnt #multiple paths are comma separated
+echo "ADD BIND PATH: ", $bpath
+echo ""
+echo "singularity ndppp test in: master"
+sing_img_path=/mnt/lustre/inula/shared/lofar/oonk/lofar-2_20_2_c7_sml_env.simg
+singularity exec --bind $bpath --pwd $PWD ${sing_img_path} NDPPP -h
+echo ""
+# -----------------------------------------------------------------------
+
+
 #--- NEW SD ---
 JOBDIR=${PWD}
 OLD_PYTHON=$( which python)
@@ -42,7 +70,10 @@ for setupfile in `ls bin/* `; do source ${setupfile} ; done
 #Initialize the environment
 ############################
 
-setup_LOFAR_env $LOFAR_PATH      ##Imported from setup_LOFAR_env.sh
+#setup_LOFAR_env $LOFAR_PATH      ##Imported from setup_LOFAR_env.sh
+#
+# ADD SINGULARITY PATH HERRE
+#
 
 #trap cleanup EXIT #This ensures the script cleans_up regardless of how and where it exits
 
@@ -54,7 +85,56 @@ if [[ -z "$PARSET" ]]; then
     exit 3  #exit 3=> Parset doesn't exist
 fi
 
-setup_run_dir                     #imported from bin/setup_run_dir.sh
+
+#!!! CHECK IF THIS NEEDS TO CHANGE !!!
+
+
+
+# -----------------------------------------------------------------------
+# PSNC VERSION
+#
+# LOCAL NODE DIRECTORY (IS TOO SMALL FOR JOB DATA HENCE GO TO SHARED FS DIR)
+DLOCAL=${JOBDIR}
+
+# USE shared lofar directory at PSNC (oonk is user lofar038 for GRID jobs, whereas locally oonk is lofar001)
+SHRDIR=/mnt/lustre/inula/shared/lofar/oonk
+ls -l ${SHRDIR}
+echo ""
+echo "contents shared/lofar/oonk: " ${SHRDIR}
+ls -l ${SHRDIR}
+
+# create a temporary scratch directory in shared !!! UPDATE SCRATCH WITH UNIQ IDENTIFIER 'OBSID_SBN' !!!
+DSCRATCH=${SHRDIR}/l38s_${PIPELINE_STEP}_${OBSID}_${STARTSB}
+echo "create scratch on shared/lofar/oonk: " ${DSCRATCH}
+mkdir -p ${DSCRATCH}
+echo ""
+echo "cp all local node WMS tranferred scripts to scratch and check with ls -l"
+cp -r ${DLOCAL}/* ${DSCRATCH}/
+ls -l ${DSCRATCH}
+echo ""
+#echo "clean up local node WMS and check with ls -l"
+#rm -rf ${DLOCAL}
+#ls -l ${DLOCAL}
+
+# go to shared dir and ste it as jobdir
+echo ""
+echo "cd to SHRDIR: " ${SHRDIR}
+cd ${SHRDIR}
+echo "set JOBDIR to SHRDIR"
+JOBDIR=${SHRDIR}
+echo "new JOBDIR set as: " ${JOBDIR}
+
+# set RUNDIR to scratch dir created below rundir
+echo ""
+echo "set RUNDIR to scratch dir on shared/lofar"
+RUNDIR=${DSCRATCH}
+# -----------------------------------------------------------------------
+
+# cp prefactor files from the jobdir to rundir
+setup_sara_dir ${RUNDIR}
+
+# cd into rundir
+cd ${RUNDIR}
 
 print_job_info                  #imported from bin/print_job_info.sh
 
@@ -82,8 +162,18 @@ fi
 
 if [[ ! -z $( echo $PIPELINE_STEP |grep targ1 ) ]]
   then
-    runtaql 
-    source /cvmfs/softdrive.nl/lofar_sw/env/current_RMextract.sh 
+    # change to singularity directly here
+    # runtaql
+    #
+    # singularity version with bind paths
+    bpath=/var,/mnt
+    echo "ADD BIND PATH: ", $bpath
+    echo ""
+    #
+    singularity exec --bind $bpath --pwd $PWD ${sing_img_path} runtaql
+    #
+    # note: RMextract exists within the singularity image
+    #source /cvmfs/softdrive.nl/lofar_sw/env/current_RMextract.sh 
 
 fi
 
@@ -92,11 +182,13 @@ fi
 #Starting processing
 #########
 
-start_profile
+#/bin -> *.sh script
+#start_profile
 
+#-> run_pipeline.sh (change to sing inside run_pipeline.sh in /bin)
 run_pipeline
 
-stop_profile
+#stop_profile
 
 process_output output
 
