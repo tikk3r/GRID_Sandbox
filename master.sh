@@ -104,7 +104,7 @@ echo "contents shared/lofar/oonk: " ${SHRDIR}
 ls -l ${SHRDIR}
 
 # create a temporary scratch directory in shared !!! UPDATE SCRATCH WITH UNIQ IDENTIFIER 'OBSID_SBN' !!!
-DSCRATCH=${SHRDIR}/l38s_${PIPELINE_STEP}_${OBSID}_${STARTSB}
+DSCRATCH=${SHRDIR}/ln38s_${PIPELINE_STEP}_${OBSID}_${STARTSB}
 echo "create scratch on shared/lofar/oonk: " ${DSCRATCH}
 mkdir -p ${DSCRATCH}
 rm -rf ${DSCRATCH}/*
