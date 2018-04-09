@@ -122,13 +122,14 @@ echo ""
 echo "cd to SHRDIR: " ${SHRDIR}
 cd ${SHRDIR}
 echo "set JOBDIR to SHRDIR"
-JOBDIR=${SHRDIR}
+JOBDIR=${DSCRATCH}
 echo "new JOBDIR set as: " ${JOBDIR}
 
 # set RUNDIR to scratch dir created below rundir
 echo ""
 echo "set RUNDIR to scratch dir on shared/lofar"
-RUNDIR=${DSCRATCH}
+
+RUNDIR=mktemp -d -p ${DSCRATCH}  #OR mktemp --directory --tmpdir=${DSCRATCH}
 # -----------------------------------------------------------------------
 
 # cp prefactor files from the jobdir to rundir
