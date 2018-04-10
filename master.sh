@@ -129,7 +129,7 @@ echo "new JOBDIR set as: " ${JOBDIR}
 echo ""
 echo "set RUNDIR to scratch dir on shared/lofar"
 
-RUNDIR=mktemp -d -p ${DSCRATCH}  #OR mktemp --directory --tmpdir=${DSCRATCH}
+export RUNDIR=$( mktemp -d -p ${DSCRATCH} )  #OR mktemp --directory --tmpdir=${DSCRATCH}
 # -----------------------------------------------------------------------
 
 # cp prefactor files from the jobdir to rundir
@@ -148,6 +148,8 @@ echo ""
 echo "---------------------------"
 echo "Starting Data Retrieval"
 echo "---------------------------"
+
+ls -lat
 
 download_files srm.txt $PIPELINE_STEP
 
