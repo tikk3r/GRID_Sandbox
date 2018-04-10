@@ -128,6 +128,7 @@ echo "new JOBDIR set as: " ${JOBDIR}
 # set RUNDIR to scratch dir created below rundir
 echo ""
 echo "set RUNDIR to scratch dir on shared/lofar"
+cd ${JOBDIR}
 
 export RUNDIR=$( mktemp -d -p ${DSCRATCH} )  #OR mktemp --directory --tmpdir=${DSCRATCH}
 # -----------------------------------------------------------------------
