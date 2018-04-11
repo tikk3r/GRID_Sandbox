@@ -17,6 +17,7 @@
 
 # -----------------------------------------------------------------------
 # PSNC VERSION
+
 LOGFILE=/tmp/$USER.creamce.lofar.psnc.pl.log
 
 echo "start master" >> $LOGFILE
@@ -65,7 +66,7 @@ fi
 
 for setupfile in `ls bin/* `; do source ${setupfile} ; done
 
-
+trap cleanup EXIT
 ############################
 #Initialize the environment
 ############################
@@ -139,7 +140,7 @@ setup_sara_dir ${RUNDIR}
 
 # cd into rundir
 cd ${RUNDIR}
-
+chmod 777 ${RUNDIR}
 print_job_info                  #imported from bin/print_job_info.sh
 
 echo ""
@@ -192,6 +193,7 @@ fi
 #start_profile
 
 #-> run_pipeline.sh (change to sing inside run_pipeline.sh in /bin)
+find ${RUNDIR} -type f -exec chmod  a+rw {} \;
 run_pipeline
 
 #stop_profile
