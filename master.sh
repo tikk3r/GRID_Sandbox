@@ -37,7 +37,7 @@ fi
 
 for setupfile in `ls bin/* `; do source ${setupfile} ; done
 
-
+trap cleanup EXIT
 ############################
 #Initialize the environment
 ############################
