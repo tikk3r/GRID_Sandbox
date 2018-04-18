@@ -35,5 +35,5 @@ mv *npy Output
 mv *obj Output
 mv *ms Output
 mv *Dico* Output
-
+mv L*.ms/*sols* Output
 }
