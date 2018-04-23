@@ -17,7 +17,7 @@ def update_freq(p_db,p_usr,p_pwd,tok_id,freq):
 
     
     token=db[tok_id] 
-    A_SBN=int(round((( ( float(freq)/1e6 - 100.0 ) / 100.0 ) * 512.0),0))
+    A_SBN=str("%03d" % int(round((( ( float(freq)/1e6 - 100.0 ) / 100.0 ) * 512.0),0)))
     if 'FREQ' in token.keys():
         token['FREQ']=freq
     token['ABN']=A_SBN
