@@ -84,7 +84,7 @@ function dl_targ2(){
    sed 's?srm://srm.grid.sara.nl:8443?gsiftp://gridftp.grid.sara.nl:2811?g' $1 | xargs -I{} globus-url-copy -st 30 -fast -v {} ${RUNDIR}/Input/ || { echo 'downloading failed' ; exit 21;  }
    ls 
    for i in `ls *tar`; do tar -xf $i  && rm -rf $i; done
-   find . -type d -name "*uv.pre-cal.ms" -exec mv {} ./ \;
+   find . -type d -name "*.pre-cal.ms" -exec mv {} ./ \;
    echo "Input directory size:"
    du -hs .
    du -hs scratch
