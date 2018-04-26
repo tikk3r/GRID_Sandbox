@@ -51,7 +51,7 @@ function dl_cal1(){
    fi
 
    if [[ ! -z $( cat $1 | grep psnc )  ]]; then
-     sed 's?srm://lta-head.lofar.psnc.pl:8443?gsiftp://gridftp.lofar.psnc.pl:2811?g' $1 | xargs -I{} globus-url-copy -v {} $PWD/Input/ || { echo 'downloading failed' ; exit 21; }
+     sed 's?srm://lta-head.lofar.psnc.pl:8443?gsiftp://door01.lofar.psnc.pl:2811?g' $1 | xargs -I{} globus-url-copy -v {} $PWD/Input/ || { echo 'downloading failed' ; exit 21; }
    fi
 
    wait
