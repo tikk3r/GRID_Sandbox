@@ -29,6 +29,7 @@ if [ -z "$TOKEN" ] || [  -z "$PICAS_USR" ] || [  -z "$PICAS_USR_PWD" ] || [  -z 
  then
   echo "One of Token=${TOKEN}, Picas_usr=${PICAS_USR}, Picas_db=${PICAS_DB} not set"; exit 1 
 fi
+export PIPELINE_STEP=""
 
 
 ########################
