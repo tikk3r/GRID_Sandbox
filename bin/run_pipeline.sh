@@ -43,6 +43,8 @@ ls pipeline.cfg
 #
 ### UPDATE TO SINGULARITY ###
 #genericpipeline.py ${PWD}/${PARSET} -d -c pipeline.cfg > output
+singularity exec --bind $bpath --pwd ${PWD} ${sing_img_path} echo $PYTHONPATH
+
 singularity exec --bind $bpath --pwd ${PWD} ${sing_img_path} genericpipeline.py ${PWD}/${PARSET} -d -c pipeline.cfg > output
 #
 
