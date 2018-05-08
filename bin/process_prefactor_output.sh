@@ -15,8 +15,8 @@ function process_output(){
      echo "Will be  at gsiftp://gridftp.grid.sara.nl:2811/pnfs/grid.sara.nl/data/lofar/user/sksp/spectroscopy-migrated/prefactor/error_states"$RERUN_FILE
    
 if [[ $(hostname -s) != 'loui' ]]; then
-    echo "removing RunDir"
-    rm -rf ${RUNDIR}
+    echo "Not removing RunDir"
+#    rm -rf ${RUNDIR}
    fi
    if [[ $( grep "bad_alloc" $1 ) > "" ]]
    then
