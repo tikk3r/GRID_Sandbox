@@ -4,6 +4,7 @@
 
 function download_files(){
 
+ echo "Downloading files for pipeline step " ${2}
  globus-url-copy >/dev/null 2>&1
  if [[ $? ==  127 ]]
  then 

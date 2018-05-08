@@ -49,6 +49,14 @@ setup_LOFAR_env $LOFAR_PATH      ##Imported from setup_LOFAR_env.sh
 
 print_worker_info                      ##Imported from bin/print_worker_info
 
+if [[ -z "$PIPELINE_STEP" ]]; then
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    echo "!!!!!!!NO PIPELINE_STEP!!!!!!!!!"
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+fi  
+
+
+
 if [[ -z "$PARSET" ]]; then
     ls "$PARSET"
     echo "not found"
