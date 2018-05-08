@@ -66,7 +66,7 @@ fi
 
 for setupfile in `ls bin/* `; do source ${setupfile} ; done
 
-trap cleanup EXIT
+#trap cleanup EXIT
 ############################
 #Initialize the environment
 ############################
@@ -212,7 +212,7 @@ make_plots
 
 upload_results
 
-cleanup 
+#cleanup 
 
 echo ""
 echo `date`
