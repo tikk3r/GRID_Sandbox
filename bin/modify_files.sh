@@ -23,9 +23,4 @@ function replace_dirs(){
  fi
 
  sed -i "s?sortmap_target\.argument\.firstSB.*=?sortmap_target\.argument\.firstSB    = ${STARTSB}?g" ${PARSET}
-
- echo "Pipeline type is "$pipelinetype
- echo "Adding $OBSID and $pipelinetype into the tcollector tags"
- sed -i "s?\[\]?\[\ \"obsid=${OBSID}\",\ \"pipeline=${pipelinetype}\"\]?g" tcollector/collectors/etc/config.py
-
 }
