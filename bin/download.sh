@@ -30,6 +30,9 @@ function download_files(){
 function dl_ssd1(){
     echo "Downloading files from distrib"
     dl_generic $1
-
+    cd ${RUNDIR}/Input
+    find . -type d  -name "*.ms" -exec mv {} ./ \;
+    find . -type d  -name "*.MS" -exec mv {} ./ \;
+    
 }
 
