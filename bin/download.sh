@@ -20,8 +20,8 @@ function download_files(){
  mkdir ${RUNDIR}/Output
     
  case "$2" in
-    *SSD1*) echo "Downloading cal1 files"; dl_ssd1 $1 ;; 
-*DYSCO*) echo "Downloading cal1 files"; dl_ssd1 $1 ;; 
+    *ampphase*) echo "Downloading SSD1 files from distrib"; dl_ssd1 $1 ;; 
+    *full*) echo "Downloading intermediate  files"; dl_ssd1 $1 ;; 
     *) echo "Unknown Pipeline, Will try to download anyways"; dl_generic $1 ;;
  esac
 } 
