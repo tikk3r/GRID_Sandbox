@@ -6,7 +6,7 @@ function replace_dirs(){
  sed -i "s?LOFAR_ROOT?${LOFAR_PATH}?g" pipeline.cfg
  echo  "replaced LOFAR_PATH in pipeline.cfg"
 
-
+ sed -i "s?gocubical ?gocubical --bbc-plot=0 --out-plots=0 ?g" ddf-pipeline/scripts/pipeline.py
 
  sed -i "s?PREFACTOR_SCRATCH_DIR?$(pwd)?g" ${PARSET}
  sed -i "s?PREFACTOR_SCRATCH_DIR?$(pwd)?g" pipeline.cfg
