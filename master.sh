@@ -74,6 +74,7 @@ replace_dirs            #imported from bin/modify_files.sh
 #########
 #Starting processing
 #########
+export PYTHONPATH=${KILLMS_DIR}/bin/lib/python2.7/site-packages/scipy-1.0.1-py2.7-linux-x86_64.egg/:$PYTHONPATH 
 
 start_profile
 
