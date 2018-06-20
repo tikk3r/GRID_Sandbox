@@ -3,7 +3,7 @@ function make_pie(){
    xmlfile=$( find . -name "*statistics.xml" 2>/dev/null)
    #cp piechart/autopie.py .
    ./autopie.py ${xmlfile} PIE_${OBSID}_${PIPELINE}.png
-   cp $! ${WORKDIR}
+   [[ -e PIE_${OBSID}_${PIPELINE}.png  ]] && cp PIE_${OBSID}_${PIPELINE}.png ${WORKDIR}
    
 }
 
@@ -22,7 +22,7 @@ function make_plots(){
 #   find ${RUNDIR} -name "PIE*png"|xargs tar -zcf pngs.tar.gz
    find ${RUNDIR} -name "*.png" -exec cp {} ${JOBDIR} \;
 #  cp PIE_${OBSID}.png ${JOBDIR}
-   cp ./prefactor/cal_results/*png ${JOBDIR}
+   cp ${RUNDIR}/prefactor/cal_results/*png ${JOBDIR}
    
 }
 
