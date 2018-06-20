@@ -8,7 +8,8 @@ function make_pie(){
 }
 
 function make_plots(){
-   
+   python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'making_plots'
+
    if [[ ! -z $( echo $pipelinetype |grep targ2 ) ]]
      then
        cd ${RUNDIR}
