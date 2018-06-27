@@ -94,7 +94,7 @@ stop_profile
 #make_pie
 # - step3 finished check contents
 
-upload_results
+upload_with_pipe
 
 cleanup 
 
