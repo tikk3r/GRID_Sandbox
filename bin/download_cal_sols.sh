@@ -12,6 +12,6 @@ function download_cals(){
  else
     exit 23 #exit 23=> numpy solutions do not get downloaded
  fi
- find ${RUNDIR}/Input/ -name "*.npy" --exec mv {} ${RUNDIR}/prefactor/cal_results
+ find ${RUNDIR}/Input/ -name "*.npy" -exec mv {} ${RUNDIR}/prefactor/cal_results
  cd ${RUNDIR}
 }
