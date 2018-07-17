@@ -102,12 +102,6 @@ function upload_cal1_ext(){
 
 function save_plots(){
     echo "Saving plots"
-    find . -name "*SB${STARTSB}*.png" -exec cp {} ${JOBDIR} \;
-
-    case "${PIPELINE_STEP}" in
-        *cal2*) find . -name "plot2*.png" -exec cp {} ${JOBDIR} \; ;;
-        *trg2*) find . -name "plot4*.png" -exec cp {} ${JOBDIR} \; ;;
-    esac
-
+    find . -name "*.png" -exec cp {} ${JOBDIR} \;
 }
 
