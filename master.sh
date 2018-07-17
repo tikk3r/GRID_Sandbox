@@ -51,9 +51,9 @@ fi
 
 print_worker_info                      ##Imported from bin/print_info
 
-setup_run_dir                     #imported from bin/setup_run_dir.sh
+setup_disc_run_dir                     #imported from bin/setup_run_dir.sh
 
-print_job_info                  #imported from bin/print_job_info.sh
+print_disc_job_info                  #imported from bin/print_job_info.sh
 
 echo ""
 echo "---------------------------------------------------------------------------"
@@ -81,18 +81,13 @@ replace_dirs            #imported from bin/modify_files.sh
 start_profile
 
 python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running'
-run_pipeline
+run_disc_pipeline
 stop_profile
-
-process_output output
-
 
 #####################
 # Make plots
 #
 ######################
-
-tarlogs 
 
 # - step3 finished check contents
 
@@ -102,7 +97,8 @@ tarlogs
 #globus-url-copy file:`pwd`/profile.tar.gz gsiftp://gridftp.grid.sara.nl:2811/pnfs/grid.sara.nl/data/lofar/user/disk/profiling/profile_${OBSID}_$( date  +%s ).tar.gz &
 #wait
 
-upload_results
+save_plots
+upload_disc_results
 
 cleanup 
 
