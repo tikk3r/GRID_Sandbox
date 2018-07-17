@@ -49,11 +49,6 @@ function run_disc_pipeline(){
     ls ${PWD}
     ls ${RUNDIR}/Input
 
-    echo ""
-    echo "Testing LOFAR Environment"
-    which NDPPP
-    NDPPP --version
-
     echo "Running script $SCRIPT"
     echo ""
     echo "--------------------------------"
@@ -74,7 +69,7 @@ function upload_disc_results(){
     echo "---------------------------------------------------------------------------"
 
     case "${PIPELINE_STEP}" in
-      disc_cal1) upload_cal1_ext ;;
+      *cal1*) upload_cal1_ext ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
     esac
 }
