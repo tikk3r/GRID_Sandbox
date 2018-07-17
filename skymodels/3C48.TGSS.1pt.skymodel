@@ -1,0 +1,4 @@
+# (Name, Type, Patch,  Ra, Dec, I, Q, U, V, MajorAxis, MinorAxis, Orientation, ReferenceFrequency='147500000.0', SpectralIndex='[]') = format
+
+ , , 3C48, 01:37:41.2971, +33.09.35.118
+3C48_1, POINT   , 3C48, 01:37:41.3592, +33.09.35.784,   66.9922, 0, 0, 0,     ,     ,      , , [-0.73]
