@@ -85,7 +85,7 @@ function upload_cal1_ext(){
     tar -cvf results.tar $PWD/* --remove-files
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'      
-    globus-url-copy file:${RUNDIR}/Output/results.tar ${RESULTS_DIR}/${OBSID}/MS_${OBSID}_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    globus-url-copy file:${RUNDIR}/Output/results.tar ${RESULTS_DIR}/${OBSID}/cal1_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     cd ${RUNDIR}
 }
 
@@ -99,7 +99,7 @@ function upload_cal2(){
     tar -cvf results.tar $PWD/* --remove-files
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
-    globus-url-copy file:${RUNDIR}/Output/results.tar ${RESULTS_DIR}/${OBSID}/instruments_cal2_${OBSID}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    globus-url-copy file:${RUNDIR}/Output/results.tar ${RESULTS_DIR}/${OBSID}/cal2_allSB.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     cd ${RUNDIR}
 
 }
@@ -108,5 +108,29 @@ function upload_cal2(){
 function save_plots(){
     echo "Saving plots"
     find . -name "*.png" -exec cp {} ${JOBDIR} \;
+}
+
+
+function download_disc_files(){
+ echo "Downloading $(wc -l $1 | awk '{print $1}' ) files"
+ $OLD_PYTHON update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'downloading'
+
+ case "${PIPELINE_STEP}" in
+    disc_cal1) echo "downloading cal1 files"; download_files $1 ;;
+    disc_cal2) echo "downloading cal2 files"; dl_cal2 $1 ;;
+    *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
+ esac
+}
+
+
+function dl_cal2{
+    echo "Downloading cal1 instrument tables"
+    cd ${RUNDIR}/Input
+    trg=${RESULTS_DIR}/${OBSID}/cal1_SB*.tar
+    uberftp -ls ${trg} > trgfiles
+    while read p; do tt=$( echo $p |awk '{print "'"$trg"'/"$NF'}| tr -d '\r'| tr -d '\n' ); globus-url-copy ${tt} ./; done < trgfiles
+    wait
+    for i in `ls *tar`; do tar -xf $i &&rm $i; done
+    wait
 }
 
