@@ -69,20 +69,10 @@ function upload_disc_results(){
     echo "---------------------------------------------------------------------------"
 
     case "${PIPELINE_STEP}" in
-      *cal1*) upload_cal1_ext ;;
+      disc_cal1) upload_cal1_ext ;;
+      disc_cal2) upload_cal2 ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
     esac
-}
-
-
-function upload_disc_cal1(){
-   find ${RUNDIR} -name "instrument" |xargs tar -cvf ${RUNDIR}/Output/instruments_${OBSID}_${STARTSB}.tar  
-   find ${RUNDIR} -iname "FIELD" |grep work |xargs tar -rvf ${RUNDIR}/Output/instruments_${OBSID}_${STARTSB}.tar 
-   find ${RUNDIR} -iname "ANTENNA" |grep work |xargs tar -rvf ${RUNDIR}/Output/instruments_${OBSID}_${STARTSB}.tar
-  
-   uberftp -mkdir ${RESULTS_DIR}/${OBSID}
-  
-   globus-url-copy ${RUNDIR}/Output/instruments_${OBSID}_${STARTSB}.tar ${RESULTS_DIR}/${OBSID}/instruments_${OBSID}_SB${STARTSB}.tar  || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed   
 }
 
 
@@ -97,6 +87,21 @@ function upload_cal1_ext(){
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'      
     globus-url-copy file:${RUNDIR}/Output/results.tar ${RESULTS_DIR}/${OBSID}/MS_${OBSID}_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     cd ${RUNDIR}
+}
+
+
+function upload_cal2(){
+    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
+    mv ${RUNDIR}/global/smooth* ${RUNDIR}/Output/
+    cd ${RUNDIR}/Output
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
+    tar -cvf results.tar $PWD/* --remove-files
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
+    globus-url-copy file:${RUNDIR}/Output/results.tar ${RESULTS_DIR}/${OBSID}/instruments_cal2_${OBSID}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    cd ${RUNDIR}
+
 }
 
 
