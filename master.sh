@@ -19,7 +19,7 @@
 JOBDIR=${PWD}
 export OLD_PYTHON=$( which python)
 echo $OLD_PYTHON
-export PIPELINE_STEP=""
+
 
 
 rm -rm /scratch/* 2>/dev/null
