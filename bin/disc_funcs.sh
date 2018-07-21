@@ -120,7 +120,7 @@ function download_disc_files(){
 }
 
 
-function dl_cal2{
+function dl_cal2(){
     echo "Downloading instrument tables from cal1 step"
     cd ${RUNDIR}/Input
     trg=${RESULTS_DIR}/${OBSID}/cal1_SB*.tar
