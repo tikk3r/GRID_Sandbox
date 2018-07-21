@@ -63,7 +63,6 @@ echo "---------------------------"
 echo "Starting Data Retrieval"
 echo "---------------------------"
 
-setup_downloads $PIPELINE_STEP
 
 download_disc_files srm.txt $PIPELINE_STEP
 
