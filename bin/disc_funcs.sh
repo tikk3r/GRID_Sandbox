@@ -125,7 +125,7 @@ function dl_cal2(){
     cd ${RUNDIR}/Input
     trg=${RESULTS_DIR}/${OBSID}/cal1_SB*.tar
     uberftp -ls ${trg} > trgfiles
-    while read p; do tt=$( echo $p |awk '{print "'"$trg"'/"$NF'}| tr -d '\r'| tr -d '\n' ); globus-url-copy ${tt} ./; done < trgfiles
+    while read p; do tt=$( echo $p |awk '{print "gsiftp://gridftp.grid.sara.nl:2811"$NF'}| tr -d '\r'| tr -d '\n' ); globus-url-copy ${tt} ./; done < trgfiles
     wait
     for i in `ls *tar`; do tar -xf $i &&rm $i; done
     wait
