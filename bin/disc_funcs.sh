@@ -8,7 +8,6 @@ function print_disc_job_info(){
     echo "j_info:" "INITIALIZATION OF JOB ARGUMENTS"
     echo "j_info: jobdir = " ${JOBDIR}
     echo "j_info: startSB = " ${STARTSB}
-    echo "j_info: numSB = " ${NUMSB}
     echo "j_info: script = " ${SCRIPT}
     echo "j_info: OBSID =" ${OBSID}
 }
@@ -124,7 +123,7 @@ function download_disc_files(){
 
 
 function dl_cal2{
-    echo "Downloading cal1 instrument tables"
+    echo "Downloading instrument tables from cal1 step"
     cd ${RUNDIR}/Input
     trg=${RESULTS_DIR}/${OBSID}/cal1_SB*.tar
     uberftp -ls ${trg} > trgfiles
