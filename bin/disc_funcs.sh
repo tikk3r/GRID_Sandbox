@@ -111,12 +111,10 @@ function save_plots(){
 
 
 function download_disc_files(){
- echo "Downloading $(wc -l $1 | awk '{print $1}' ) files"
- $OLD_PYTHON update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'downloading'
 
  case "${PIPELINE_STEP}" in
-    disc_cal1) echo "downloading cal1 files"; download_files $1 ;;
-    disc_cal2) echo "downloading cal2 files"; dl_cal2 $1 ;;
+    disc_cal1) echo "downloading file for disc_cal1 step"; download_files $1 ;;
+    disc_cal2) echo "downloading files for disc_cal2 step"; dl_cal2 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
  esac
 }
@@ -131,5 +129,7 @@ function dl_cal2{
     wait
     for i in `ls *tar`; do tar -xf $i &&rm $i; done
     wait
+    ls ${RUNDIR}/Input
+    cd ${RUNDIR}
 }
 
