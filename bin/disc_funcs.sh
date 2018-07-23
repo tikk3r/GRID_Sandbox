@@ -80,7 +80,7 @@ function upload_cal1_ext(){
     cd ${RUNDIR}/Output
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'      
-    tar -cvf results.tar $PWD/* --remove-files
+    tar -cvf results.tar ./* --remove-files
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'      
     globus-url-copy file:${RUNDIR}/Output/results.tar ${RESULTS_DIR}/${OBSID}/cal1_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
@@ -94,7 +94,7 @@ function upload_cal2(){
     cd ${RUNDIR}/Output
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
-    tar -cvf results.tar $PWD/* --remove-files
+    tar -cvf results.tar ./* --remove-files
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
     globus-url-copy file:${RUNDIR}/Output/results.tar ${RESULTS_DIR}/${OBSID}/cal2_allSB.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
@@ -122,7 +122,7 @@ function download_disc_files(){
 function dl_cal2(){
     echo "Downloading instrument tables from cal1 step"
     cd ${RUNDIR}/Input
-    trg=${RESULTS_DIR}/${OBSID}/cal1_SB*.tar
+    trg=${RESULTS_DIR}/${OBSID}/cal1_SB000.tar
     uberftp -ls ${trg} > trgfiles
     while read p; do tt=$( echo $p |awk '{print "gsiftp://gridftp.grid.sara.nl:2811"$NF'}| tr -d '\r'| tr -d '\n' ); globus-url-copy ${tt} ./; done < trgfiles
     wait
