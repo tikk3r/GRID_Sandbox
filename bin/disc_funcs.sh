@@ -122,7 +122,7 @@ function download_disc_files(){
 function dl_cal2(){
     echo "Downloading instrument tables from cal1 step"
     cd ${RUNDIR}/Input
-    trg=${RESULTS_DIR}/${OBSID}/cal1_SB000.tar
+    trg=${RESULTS_DIR}/${OBSID}/cal1_SB00*.tar
     uberftp -ls ${trg} > trgfiles
     while read p; do tt=$( echo $p |awk '{print "gsiftp://gridftp.grid.sara.nl:2811"$NF'}| tr -d '\r'| tr -d '\n' ); globus-url-copy ${tt} ./; done < trgfiles
     wait
