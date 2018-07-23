@@ -40,7 +40,7 @@ function setup_disc_sara_dir(){
 
 function run_disc_pipeline(){
     echo ""
-    echo "Running test script"
+    echo "Running script"
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running pipeline'
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_progress.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} output ${SCRIPT} &
 
@@ -76,29 +76,29 @@ function upload_disc_results(){
 
 function upload_cal1_ext(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
-    mv ${RUNDIR}/L*.MS* ${RUNDIR}/Output/
-    cd ${RUNDIR}/Output
-
+    #cd ${RUNDIR}/Output
+    
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'      
-    tar -cvf results.tar ./* --remove-files
+    #ls -lh ${RUNDIR}/L*.MS*
+    tar -cvf results.tar L*.MS*
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'      
-    globus-url-copy file:${RUNDIR}/Output/results.tar ${RESULTS_DIR}/${OBSID}/cal1_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    globus-url-copy file:results.tar ${RESULTS_DIR}/${OBSID}/cal1_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     cd ${RUNDIR}
 }
 
 
 function upload_cal2(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
-    mv ${RUNDIR}/global/smooth* ${RUNDIR}/Output/
-    cd ${RUNDIR}/Output
+    #cd ${RUNDIR}/Output
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
-    tar -cvf results.tar ./* --remove-files
+    ls -lh global/smooth*
+    tar -cvf results.tar global/smooth* 
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
-    globus-url-copy file:${RUNDIR}/Output/results.tar ${RESULTS_DIR}/${OBSID}/cal2_allSB.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
-    cd ${RUNDIR}
+    globus-url-copy file:results.tar ${RESULTS_DIR}/${OBSID}/cal2_allSB.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    #cd ${RUNDIR}
 
 }
 
