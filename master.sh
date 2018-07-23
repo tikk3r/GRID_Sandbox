@@ -70,7 +70,6 @@ echo "Download finished, list contents"
 ls -l $PWD
 du -hs $PWD
 
-replace_dirs            #imported from bin/modify_files.sh
 
 #########
 #Starting processing
