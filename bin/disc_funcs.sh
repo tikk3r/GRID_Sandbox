@@ -114,6 +114,7 @@ function download_disc_files(){
  case "${PIPELINE_STEP}" in
     disc_cal1) echo "downloading file for disc_cal1 step"; download_files $1 ;;
     disc_cal2) echo "downloading files for disc_cal2 step"; dl_cal2 ;;
+    disc_trg1) echo "downloading files for disc_trg1 step"; dl_trg1 $1 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
  esac
 }
@@ -130,5 +131,22 @@ function dl_cal2(){
     wait
     ls ${RUNDIR}/Input
     cd ${RUNDIR}
+}
+
+function dl_trg1(){
+    echo "Downloading srm"
+    download_files $1
+    
+    cd ${RUNDIR}/Input
+    cal=${RESULTS_DIR}/${CAL_OBSID}/cal2_allSB.tar
+    globus-url-copy ${cal} instruments_amp.tar
+    wait
+    if [[ -e instruments_amp.tar ]]
+      then
+        tar -xvf instruments_amp.tar
+    else
+        exit 31 #exit 31=> numpy solutions do not get downloaded
+    fi
+    wait
 }
 
