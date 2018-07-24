@@ -69,6 +69,7 @@ function upload_disc_results(){
     case "${PIPELINE_STEP}" in
       disc_cal1) upload_cal1_ext ;;
       disc_cal2) upload_cal2 ;;
+      disc_trg1) upload_trg1 ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
     esac
 }
@@ -100,6 +101,17 @@ function upload_cal2(){
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/cal2_allSB.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     #cd ${RUNDIR}
 
+}
+
+
+function upload_trg1(){
+    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
+    find . -name "*.MS.tfa.phase.amp" |xargs tar -cvf results.tar
+    
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg1_SB${STARTSB}.tar
 }
 
 
@@ -148,5 +160,7 @@ function dl_trg1(){
         exit 31 #exit 31=> numpy solutions do not get downloaded
     fi
     wait
+    ls ${RUNDIR}/Input
+    cd ${RUNDIR}
 }
 
