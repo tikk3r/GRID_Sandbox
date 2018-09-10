@@ -1,5 +1,16 @@
 #!/bin/bash
 
+
+function run_with_singularity(){
+# first argument is the singularity Image file
+# second argument is the script to run
+echo $1 $2
+
+singularity exec $1 ./$2
+
+}
+
+
 function run_pipeline(){
 
 
@@ -13,16 +24,18 @@ ls ${RUNDIR}/Input
 
 echo ""
 echo "Testing LOFAR Environment"
-which NDPPP
-NDPPP --version
-
 echo "Running script $SCRIPT"
 echo ""
 echo "--------------------------------"
 echo ""
 chmod a+x $SCRIPT
 
-./${SCRIPT}
+if [[ -n $SIMG  ]]; then
+    run_with_singularity $SIMG $SCRIPT
+else
+    ./${SCRIPT}
+fi
+
 
 echo ""
 echo "--------------------------------"
