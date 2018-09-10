@@ -67,7 +67,7 @@ function upload_disc_results(){
     echo "---------------------------------------------------------------------------"
 
     case "${PIPELINE_STEP}" in
-      disc_cal1) upload_cal1_ext ;;
+      disc_cal1) upload_cal1 ;;
       disc_cal2) upload_cal2 ;;
       disc_trg1) upload_trg1 ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
@@ -89,6 +89,23 @@ function upload_cal1_ext(){
 }
 
 
+function upload_cal1(){
+    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
+    #cd ${RUNDIR}/Output
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
+
+    find . -name instrument |xargs tar -cvf results.tar
+    find *MS.cfa/ANTENNA |xargs tar -rvf results.tar
+    find *MS.cfa/FIELD |xargs tar -rvf results.tar
+    find *MS.cfa/sky |xargs tar -rvf results.tar
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/cal1_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    cd ${RUNDIR}
+}
+
+
 function upload_cal2(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
     #cd ${RUNDIR}/Output
@@ -100,7 +117,6 @@ function upload_cal2(){
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/cal2_allSB.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     #cd ${RUNDIR}
-
 }
 
 
