@@ -134,7 +134,7 @@ function upload_trg1(){
 
 function save_plots(){
     echo "Saving plots"
-    find . -name "*.png" -exec cp {} ${JOBDIR} \;
+    find . -name "*.png" -exec cp {} ${RUNDIR} \;
 }
 
 
