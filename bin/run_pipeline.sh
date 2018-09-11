@@ -29,7 +29,7 @@ $OLD_PYTHON update_token_progress.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} $
 
 if [[ -n $SIMG   ]]; then
     echo "Using singularity image at $SIMG"
-    run_with_singularity $SIMG $SCRIPT
+    run_with_singularity $SIMG $PARSET
   else
     which NDPPP
     NDPPP -v
