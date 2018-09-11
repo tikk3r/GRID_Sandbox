@@ -4,7 +4,8 @@
 function run_with_singularity(){
 # first argument is the singularity Image file
 # second argument is the script to run
-echo $1 $2
+
+echo "Running script $2 in image $1"
 
 singularity exec $1 ./$2
 
