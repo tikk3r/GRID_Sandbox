@@ -34,6 +34,7 @@ chmod a+x $SCRIPT
 if [[ -n $SIMG  ]]; then
     run_with_singularity $SIMG $SCRIPT
 else
+    echo "Running using LOFAR version at $LOFAR_PATH"
     ./${SCRIPT}
 fi
 
