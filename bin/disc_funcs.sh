@@ -70,6 +70,7 @@ function upload_disc_results(){
       disc_cal1) upload_cal1 ;;
       disc_cal2) upload_cal2 ;;
       disc_trg1) upload_trg1 ;;
+      disc_trg2) upload_trg2 ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
     esac
 }
@@ -125,10 +126,23 @@ function upload_trg1(){
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
     find . -name "*.MS.tfa.phase.amp" |xargs tar -cvf results.tar
-    find . -name "*image.fits" |xargs tar -rvf results.tar
+    #find . -name "*image.fits" |xargs tar -rvf results.tar
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg1_SB${STARTSB}.tar
+}
+
+function upload_trg2(){
+    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
+    #cd ${RUNDIR}/Output
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
+    ls -lh global/smooth*
+    tar -cvf results.tar global/smooth*
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg2_allSB.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    #cd ${RUNDIR}
 }
 
 
@@ -144,6 +158,7 @@ function download_disc_files(){
     disc_cal1) echo "downloading file for disc_cal1 step"; download_files $1 ;;
     disc_cal2) echo "downloading files for disc_cal2 step"; dl_cal2 ;;
     disc_trg1) echo "downloading files for disc_trg1 step"; dl_trg1 $1 ;;
+    disc_trg2) echo "downloading files for disc_trg2 step"; dl_trg2 $1 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
  esac
 }
@@ -162,8 +177,9 @@ function dl_cal2(){
     cd ${RUNDIR}
 }
 
+
 function dl_trg1(){
-    echo "Downloading srm"
+    echo "Downloading srm and cal2 instrument tables"
     download_files $1
     
     cd ${RUNDIR}/Input
@@ -181,3 +197,16 @@ function dl_trg1(){
     cd ${RUNDIR}
 }
 
+
+function dl_trg2(){
+    echo "Downloading instrument tables from trg1 step"
+    cd ${RUNDIR}/Input
+    trg=${RESULTS_DIR}/${OBSID}/trg1_SB*.tar
+    uberftp -ls ${trg} > trgfiles
+    while read p; do tt=$( echo $p |awk '{print "gsiftp://gridftp.grid.sara.nl:2811"$NF'}| tr -d '\r'| tr -d '\n' ); globus-url-copy ${tt} ./; done < trgfiles
+    wait
+    for i in `ls *tar`; do tar -xf $i &&rm $i; done
+    wait
+    ls ${RUNDIR}/Input
+    cd ${RUNDIR}
+}
