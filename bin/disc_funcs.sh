@@ -159,6 +159,7 @@ function download_disc_files(){
     disc_cal2) echo "downloading files for disc_cal2 step"; dl_cal2 ;;
     disc_trg1) echo "downloading files for disc_trg1 step"; dl_trg1 $1 ;;
     disc_trg2) echo "downloading files for disc_trg2 step"; dl_trg2 $1 ;;
+    disc_trg3) echo "downloading files for disc_trg3 step"; dl_trg3 $1 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
  esac
 }
@@ -210,3 +211,32 @@ function dl_trg2(){
     ls ${RUNDIR}/Input
     cd ${RUNDIR}
 }
+
+
+function dl_trg3(){
+    echo "Downloading MS from trg1 and instrument tables from trg2 step"
+    cd ${RUNDIR}/Input
+
+    trg1=${RESULTS_DIR}/${OBSID}/trg1_SB*.tar
+    uberftp -ls ${trg1} > trgfiles
+    while read p; do tt=$( echo $p |awk '{print "gsiftp://gridftp.grid.sara.nl:2811"$NF'}| tr -d '\r'| tr -d '\n' ); globus-url-copy ${tt} ./; done < trgfiles
+    wait
+    for i in `ls *tar`; do tar -xf $i &&rm $i; done
+    wait
+
+    trg2=${RESULTS_DIR}/${OBSID}/trg2_allSB.tar
+    globus-url-copy ${trg2} instruments_amp.tar
+    wait
+    if [[ -e instruments_amp.tar ]]
+      then
+        tar -xvf instruments_amp.tar
+    else
+        exit 31 #exit 31=> numpy solutions do not get downloaded
+    fi
+    wait
+
+    ls ${RUNDIR}/Input
+    cd ${RUNDIR}
+}
+
+
