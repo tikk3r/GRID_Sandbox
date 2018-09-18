@@ -154,7 +154,7 @@ function upload_trg3(){
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
     find . -name "*.MS.tfa.phase.amp.flg" |xargs tar -cvf results.tar
-    find . -name "*image.fits" |xargs tar -rvf results.tar
+    find . -name "*.fits" |xargs tar -rvf results.tar
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg3_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
