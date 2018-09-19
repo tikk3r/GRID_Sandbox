@@ -68,6 +68,7 @@ function upload_disc_results(){
 
     case "${PIPELINE_STEP}" in
       disc_cal1) upload_cal1 ;;
+      disc_cal1_v120) upload_cal1_v120 ;;
       disc_cal2) upload_cal2 ;;
       disc_trg1) upload_trg1 ;;
       disc_trg1_v110) upload_trg1_v110 ;;
@@ -78,7 +79,7 @@ function upload_disc_results(){
 }
 
 
-function upload_cal1_ext(){
+function upload_cal1_v120(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
     #cd ${RUNDIR}/Output
     
@@ -87,7 +88,7 @@ function upload_cal1_ext(){
     tar -cvf results.tar L*.MS*
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'      
-    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/cal1_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/cal1_v120_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     cd ${RUNDIR}
 }
 
@@ -185,6 +186,7 @@ function download_disc_files(){
 
  case "${PIPELINE_STEP}" in
     disc_cal1) echo "downloading file for disc_cal1 step"; download_files $1 ;;
+    disc_cal1_v120) echo "downloading file for disc_cal1 step"; download_files $1 ;;
     disc_cal2) echo "downloading files for disc_cal2 step"; dl_cal2 ;;
     disc_trg1) echo "downloading files for disc_trg1 step"; dl_trg1 $1 ;;
     disc_trg1_v110) echo "downloading files for disc_trg1 step"; dl_trg1 $1 ;;
