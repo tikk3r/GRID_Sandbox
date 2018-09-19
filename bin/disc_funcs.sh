@@ -70,6 +70,7 @@ function upload_disc_results(){
       disc_cal1) upload_cal1 ;;
       disc_cal2) upload_cal2 ;;
       disc_trg1) upload_trg1 ;;
+      disc_trg1_v110) upload_trg1_v110 ;;
       disc_trg2) upload_trg2 ;;
       disc_trg3) upload_trg3 ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
@@ -134,6 +135,18 @@ function upload_trg1(){
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg1_SB${STARTSB}.tar
 }
 
+function upload_trg1_v110(){
+    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
+    find . -name "*.MS.tfa.phase" |xargs tar -cvf results.tar
+    find . -name "*image*fits" |xargs tar -rvf results.tar
+    find . -name "*MFS*fits" |xargs tar -rvf results.tar
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg1_v110_SB${STARTSB}.tar
+}
+
 function upload_trg2(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
     #cd ${RUNDIR}/Output
@@ -146,7 +159,6 @@ function upload_trg2(){
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg2_allSB.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     #cd ${RUNDIR}
 }
-
 
 function upload_trg3(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
@@ -175,6 +187,7 @@ function download_disc_files(){
     disc_cal1) echo "downloading file for disc_cal1 step"; download_files $1 ;;
     disc_cal2) echo "downloading files for disc_cal2 step"; dl_cal2 ;;
     disc_trg1) echo "downloading files for disc_trg1 step"; dl_trg1 $1 ;;
+    disc_trg1_v110) echo "downloading files for disc_trg1 step"; dl_trg1 $1 ;;
     disc_trg2) echo "downloading files for disc_trg2 step"; dl_trg2 $1 ;;
     disc_trg3) echo "downloading files for disc_trg3 step"; dl_trg3 $1 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
