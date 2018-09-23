@@ -72,6 +72,7 @@ function upload_disc_results(){
       disc_cal2) upload_cal2 ;;
       disc_trg1) upload_trg1 ;;
       disc_trg1_v110) upload_trg1_v110 ;;
+      disc_trg1_v120) upload_trg1_v120 ;;
       disc_trg2) upload_trg2 ;;
       disc_trg3) upload_trg3 ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
@@ -148,6 +149,18 @@ function upload_trg1_v110(){
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg1_v110_SB${STARTSB}.tar
 }
 
+
+function upload_trg1_v120(){
+    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
+    find . -name "*.MS.tfa.phase.amp" |xargs tar -cvf results.tar
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg1_v120_SB${STARTSB}.tar
+}
+
+
 function upload_trg2(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
     #cd ${RUNDIR}/Output
@@ -189,7 +202,8 @@ function download_disc_files(){
     disc_cal1_v120) echo "downloading file for disc_cal1 step"; download_files $1 ;;
     disc_cal2) echo "downloading files for disc_cal2 step"; dl_cal2 ;;
     disc_trg1) echo "downloading files for disc_trg1 step"; dl_trg1 $1 ;;
-    disc_trg1_v110) echo "downloading files for disc_trg1 step"; dl_trg1 $1 ;;
+    disc_trg1_v110) echo "downloading files for disc_trg1_v110 step"; dl_trg1 $1 ;;
+    disc_trg1_v120) echo "downloading files for disc_trg1_v120 step"; dl_trg1_v120 $1 ;;
     disc_trg2) echo "downloading files for disc_trg2 step"; dl_trg2 $1 ;;
     disc_trg3) echo "downloading files for disc_trg3 step"; dl_trg3 $1 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
@@ -222,6 +236,26 @@ function dl_trg1(){
     if [[ -e instruments_amp.tar ]]
       then
         tar -xvf instruments_amp.tar
+    else
+        exit 31 #exit 31=> numpy solutions do not get downloaded
+    fi
+    wait
+    ls ${RUNDIR}/Input
+    cd ${RUNDIR}
+}
+
+
+function dl_trg1_v120(){
+    echo "Downloading srm and cal2 instrument tables"
+    download_files $1
+
+    cd ${RUNDIR}/Input
+    cal=${RESULTS_DIR}/${CAL_OBSID}/cal1_v120_SB${STARTSB}.tar
+    globus-url-copy ${cal} cal.tar
+    wait
+    if [[ -e cal.tar ]]
+      then
+        tar -xvf cal.tar
     else
         exit 31 #exit 31=> numpy solutions do not get downloaded
     fi
