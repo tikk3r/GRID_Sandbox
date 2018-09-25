@@ -74,7 +74,7 @@ function upload_disc_results(){
       disc_trg1_v110) upload_trg1_v110 ;;
       disc_trg1_v120) upload_trg1_v120 ;;
       disc_trg2) upload_trg2 ;;
-      disc_trg2) upload_trg2_v120 ;;
+      disc_trg2_v120) upload_trg2_v120 ;;
       disc_trg3) upload_trg3 ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
     esac
