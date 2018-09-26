@@ -76,6 +76,7 @@ function upload_disc_results(){
       disc_trg2) upload_trg2 ;;
       disc_trg2_v120) upload_trg2_v120 ;;
       disc_trg3) upload_trg3 ;;
+      disc_trg3_v120) upload_trg3_v120 ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
     esac
 }
@@ -203,6 +204,19 @@ function upload_trg3(){
 }
 
 
+function upload_trg3_v120(){
+    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
+    #cd ${RUNDIR}/Output
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
+    find . -name "*.MS.tfa.phase.amp.flg" |xargs tar -cvf results.tar
+    find . -name "*image*fits" |xargs tar -rvf results.tar
+    find . -name "*MFS*fits" |xargs tar -rvf results.tar
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg3_v120_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+}
+
 function save_plots(){
     echo "Saving plots"
     find . -name "*.png" -exec cp {} ${JOBDIR} \;
@@ -221,6 +235,7 @@ function download_disc_files(){
     disc_trg2) echo "downloading files for disc_trg2 step"; dl_trg2 $1 ;;
     disc_trg2_v120) echo "downloading files for disc_trg2 step"; dl_trg2_v120 $1 ;;
     disc_trg3) echo "downloading files for disc_trg3 step"; dl_trg3 $1 ;;
+    disc_trg3_v120) echo "downloading files for disc_trg3 step"; dl_trg3_v120 $1 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
  esac
 }
@@ -338,4 +353,34 @@ function dl_trg3(){
     cd ${RUNDIR}
 }
 
+
+function dl_trg3(){
+    echo "Downloading MS from trg1 and instrument tables from trg2 step"
+    cd ${RUNDIR}/Input
+
+    trg1=${RESULTS_DIR}/${OBSID}/trg1_v120_SB${STARTSB}.tar
+    globus-url-copy ${trg1} MS_amp.tar
+    wait
+    if [[ -e MS_amp.tar ]]
+      then
+        tar -xvf MS_amp.tar
+    else
+        exit 31 #exit 31=> numpy solutions do not get downloaded
+    fi
+    wait
+
+    trg2=${RESULTS_DIR}/${OBSID}/trg2_v120_allSB.tar
+    globus-url-copy ${trg2} instruments_amp.tar
+    wait
+    if [[ -e instruments_amp.tar ]]
+      then
+        tar -xvf instruments_amp.tar
+    else
+        exit 31 #exit 31=> numpy solutions do not get downloaded
+    fi
+    wait
+
+    ls ${RUNDIR}/Input
+    cd ${RUNDIR}
+}
 
