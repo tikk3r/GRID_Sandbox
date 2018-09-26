@@ -354,7 +354,7 @@ function dl_trg3(){
 }
 
 
-function dl_trg3(){
+function dl_trg3_v120(){
     echo "Downloading MS from trg1 and instrument tables from trg2 step"
     cd ${RUNDIR}/Input
 
