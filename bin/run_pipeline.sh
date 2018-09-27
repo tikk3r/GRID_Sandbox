@@ -32,6 +32,7 @@ echo ""
 chmod a+x $SCRIPT
 
 if [[ -n $SIMG  ]]; then
+    echo "Running using the singularity image at ${SIMG}"
     run_with_singularity $SIMG $SCRIPT
 else
     echo "Running using LOFAR version at $LOFAR_PATH"
