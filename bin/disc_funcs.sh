@@ -303,7 +303,7 @@ function dl_trg1_v120(){
 function dl_trg2(){
     echo "Downloading instrument tables from trg1 step"
     cd ${RUNDIR}/Input
-    trg=${RESULTS_DIR}/${OBSID}/trg1_SB02*.tar
+    trg=${RESULTS_DIR}/${OBSID}/trg1_SB*.tar
     uberftp -ls ${trg} > trgfiles
     while read p; do tt=$( echo $p |awk '{print "gsiftp://gridftp.grid.sara.nl:2811"$NF'}| tr -d '\r'| tr -d '\n' ); globus-url-copy ${tt} ./; done < trgfiles
     wait
