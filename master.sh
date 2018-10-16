@@ -42,7 +42,7 @@ trap cleanup EXIT
 
 #setup_LOFAR_env $LOFAR_PATH      ##Imported from setup_LOFAR_env.sh
 #source /cvmfs/softdrive.nl/lofar_sw/wsclean/wsclean-2.6/init_env.sh
-source /cvmfs/softdrive.nl/lofar_sw/env/losoto_2.0.sh
+#source /cvmfs/softdrive.nl/lofar_sw/env/losoto_2.0.sh
 #export PATH=/cvmfs/softdrive.nl/lofar_sw/losoto/2.0/bin/losoto:$PATH
 #source /cvmfs/softdrive.nl/lofar_sw/wsclean/wsclean-2.6/init_env.sh
 
@@ -82,7 +82,8 @@ du -hs $PWD
 
 start_profile
 
-python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running'
+#python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running'
+singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running'
 run_disc_pipeline
 stop_profile
 
