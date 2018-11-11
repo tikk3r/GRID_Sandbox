@@ -10,7 +10,7 @@ python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_progress.py ${PICAS_DB} ${PIC
 
 ls ${PWD}
 ls ${RUNDIR}/Input
-
+rm  ${RUNDIR}/Input/pipeline_status
 echo ""
 echo "Testing LOFAR Environment"
 which wsclean
