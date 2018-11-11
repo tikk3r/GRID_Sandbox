@@ -39,6 +39,8 @@ trap cleanup EXIT
 ############################
 
 setup_LOFAR_env $LOFAR_PATH      ##Imported from setup_LOFAR_env.sh
+source /cvmfs/softdrive.nl/lofar_sw/env/current_dysco.sh 
+source /cvmfs/softdrive.nl/lofar_sw/wsclean/wsclean-2.6/init_env.sh
 
 if [[ -z "$PARSET" ]]; then
     ls "$PARSET"
