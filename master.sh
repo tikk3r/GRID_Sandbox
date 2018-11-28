@@ -101,6 +101,17 @@ fi
 #Starting processing
 #########
 
+cd $PWD/prefactor
+echo "+++++++++++++"
+echo "++prefactor++"
+echo "+++version+++"
+
+git log --graph --decorate |head  -24
+echo "+++++++++++++"
+echo "+++++++++++++"
+
+cd $RUNDIR
+
 start_profile
 
 run_pipeline
