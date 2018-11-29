@@ -15,7 +15,9 @@ function make_plots(){
        cd ${RUNDIR}
        ./prefactor/scripts/plot_solutions_all_stations.py -p $( ls -d ${RUNDIR}/prefactor/results/*ms )/instrument_directionindependent/ ${JOBDIR}/GSM_CAL_${OBSID}_ABN${STARTSB}_plot.png
    fi
-   find ${RUNDIR}/prefactor/ -name "*.png" -exec cp {} ${JOBDIR} \;
+   find ${RUNDIR}/prefactor/*result* -name "*.png" -exec cp {} ${JOBDIR} \;
+   find ${RUNDIR}/Output/  -name "*.png" -exec cp {} ${JOBDIR} \;
+
    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'copied_plots' 
 }
 

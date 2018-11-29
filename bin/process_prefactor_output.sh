@@ -7,6 +7,7 @@ function process_output(){
     exit 90 # exit 90 => No output file exists
  fi
  more $1
+ rm -rf ${RUNDIR}/prefactor
  if [[ $( grep "finished unsuccesfully" $1 ) > "" ]]
  then
      $OLD_PYTHON update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'prefactor_crashed!'
