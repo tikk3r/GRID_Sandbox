@@ -10,6 +10,8 @@ function replace_dirs(){
 
  sed -i "s?PREFACTOR_SCRATCH_DIR?$(pwd)?g" ${PARSET}
  sed -i "s?PREFACTOR_SCRATCH_DIR?$(pwd)?g" pipeline.cfg
+ sed -i "s?PREFACTOR_SCRATCH_DIR?$(pwd)?g" sing_pipeline.cfg
+
  echo "Replacing "$PWD" in the prefactor parset"
 
  if [[ ! -z $( echo $PIPELINE_STEP |grep targ ) ]]
