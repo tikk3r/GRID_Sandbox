@@ -17,6 +17,9 @@ singularity exec ${SIMG} genericpipeline.py ${PWD}/${PARSET} -d -c sing_pipeline
 
 function run_pipeline(){
 
+mkdir -p ${RUNDIR}/prefactor/rundir
+mkdir -p ${RUNDIR}/prefactor/workdir
+
 echo ""
 echo "Running Prefactor Parset"
 python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'launching_pipeline'
