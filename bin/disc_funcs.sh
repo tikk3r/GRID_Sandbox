@@ -42,9 +42,9 @@ function run_disc_pipeline(){
     echo ""
     echo "Running script"
     #python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running pipeline'
-    singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar_kern.simg python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running pipeline'
+    singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running pipeline'
     #python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_progress.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} output ${SCRIPT} &
-    singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar_kern.simg python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_progress.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} output ${SCRIPT} &
+    singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_progress.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} output ${SCRIPT} &
 
     ls ${PWD}
     ls ${RUNDIR}/Input
@@ -55,13 +55,13 @@ function run_disc_pipeline(){
     echo ""
 
     #python ${SCRIPT}
-    singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar_kern.simg python ${SCRIPT}
+    singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python ${SCRIPT}
 
     echo ""
     echo "--------------------------------"
     echo ""
     #python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'processing_finished'
-    singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar_kern.simg python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'processing_finished'
+    singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'processing_finished'
 }
 
 
