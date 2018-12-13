@@ -79,8 +79,8 @@ echo "---------------------------"
 download_files srm.txt $PIPELINE_STEP
 
 echo "Download finished, list contents"
-ls -l $PWD
-du -hs $PWD
+ls -l $PWD/Input
+du -hs $PWD/Input
 
 replace_dirs            #imported from bin/modify_files.sh
 
