@@ -14,11 +14,6 @@ function process_output(){
      echo "Pipeline did not finish, tarring work and run directories for re-run"
      RERUN_FILE=$OBSID"_"$STARTSB"prefactor_error.tar"
      echo "Will be  at gsiftp://gridftp.grid.sara.nl:2811/pnfs/grid.sara.nl/data/lofar/user/sksp/spectroscopy-migrated/prefactor/error_states"$RERUN_FILE
-   
-if [[ $(hostname -s) != 'loui' ]]; then
-    echo "removing RunDir"
-    rm -rf ${RUNDIR}
-   fi
    if [[ $( grep "bad_alloc" $1 ) > "" ]]
    then
         echo "Prefactor crashed because of bad_alloc. Not enough memory"
@@ -35,7 +30,7 @@ if [[ $(hostname -s) != 'loui' ]]; then
         echo "Prefactor crashed because of bad download"
         exit 96 #exit 96=> Files not downloaded fully
    fi
-
+   cleanup
    exit 99 #exit 99=> generic prefactor error
  fi
 
