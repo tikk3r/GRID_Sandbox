@@ -7,6 +7,10 @@ function run_with_singularity(){
 
 echo "Running script $2 in image $1"
 
+if [[ $1 == *"shub://"*  ]]; then
+   echo "Downloading image from singularityhub.org"
+fi
+
 singularity exec $1 ./$2
 
 }
