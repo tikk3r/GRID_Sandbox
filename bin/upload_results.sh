@@ -39,6 +39,8 @@ echo "--------------------------------------------------------------------------
     pref_targ1) upload_results_targ1 ;;
     pref_targ2) upload_results_targ2 ;;
     pref3_cal) upload_results_cal3 ;;
+    pref3_targ1) upload_results_targ1 ;;
+    pref3_targ2) upload_results_targ2 ;;
     *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
  esac
 
