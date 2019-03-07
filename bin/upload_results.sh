@@ -115,7 +115,7 @@ function upload_results_cal3(){
 function upload_results_targ1(){
 
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
-    mv ${RUNDIR}/prefactor/results/L* ${RUNDIR}/Output/
+    mv ${RUNDIR}/results/L* ${RUNDIR}/Output/
     cp ${PARSET}  $( ls -d ${RUNDIR}/Output/*/)/parset
     ls $( ls -d ${RUNDIR}/Output/*/ )/parset
     cd ${RUNDIR}/Output
@@ -131,7 +131,7 @@ function upload_results_targ1(){
 
 function upload_results_targ2(){
 
-   mv ${RUNDIR}/prefactor/results/L* ${RUNDIR}/Output/
+   mv ${RUNDIR}/results/L*.pre-cal.ms ${RUNDIR}/Output/
    cp ${PARSET}  $( ls -d ${RUNDIR}/Output/L*/ )/parset
    cd ${RUNDIR}/Output
    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'   
