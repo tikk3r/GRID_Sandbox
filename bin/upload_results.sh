@@ -99,7 +99,7 @@ function upload_results_cal2(){
 function upload_results_cal3(){
    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
    cd ${RUNDIR}
-   ls prefactor/results/cal_values/*h5
+   ls results/cal_values/*h5
 
    if [ -d results/cal_values ];then
        tar -cvf Output/calib_solutions.tar results/cal_values/* results/inspection/*

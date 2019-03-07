@@ -12,7 +12,7 @@ function download_cals(){
  else
     exit 23 #exit 23=> numpy solutions do not get downloaded
  fi
- mkdir -p ${RUNDIR}/prefactor/cal_results
+ mkdir -p ${RUNDIR}/results/cal_results
  find ${RUNDIR}/Input/ -name "*.h5" -exec mv {} ${RUNDIR}/prefactor/cal_results/ \; 
  cd ${RUNDIR}
 }
