@@ -99,10 +99,10 @@ function upload_results_cal2(){
 function upload_results_cal3(){
    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
    cd ${RUNDIR}
-   ls results/cal_values/*h5
+   ls Output/results/cal_values/*h5
 
-   if [ -d results/cal_values ];then
-       tar -cvf Output/calib_solutions.tar results/cal_values/* results/inspection/*
+   if [ -d Output/results/cal_values ];then
+       tar -cvf Output/calib_solutions.tar Output/results/cal_values/* Output/results/inspection/*
    else
        echo "WARNING: Could not find results"
    fi
