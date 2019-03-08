@@ -37,7 +37,7 @@ function download_files(){
 function dl_targ1(){
    python wait_for_dl.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD}
    python ./download_srms.py $1 0 $( wc -l $1 | awk '{print $1}' ) || { echo "Download Failed!!"; exit 21; } #exit 21=> Download fails
-   for i in `ls *tar`; do tar -xvf $i &&rm $i && gunzip $(echo $i | awk -F_ 'NF{--NF};1'); done 
+   for i in `ls *tar`; do tar -xvf $i &&rm $i && gunzip -r $(echo $i | awk -F_ 'NF{--NF};1'); done 
  
 }
 
