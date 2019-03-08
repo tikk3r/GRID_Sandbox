@@ -11,7 +11,7 @@ echo "Running prefactor in image ${SIMG}"
 singularity exec ${SIMG} which genericpipeline.py
 echo ${PARSET}
 cat sing_pipeline.cfg
-export PYTHONPATH=$(echo "$PYTHONPATH" | sed -e 's/:\/cvmfs\/softdrive\.nl\/lofar_sw\/RMextract\/lib\/python2.7\/site-packages$//')
+export PYTHONPATH=$(echo "$PYTHONPATH" | sed -e 's/:\/cvmfs\/softdrive\.nl\/lofar_sw\/RMextract\/lib\/python2.7\/site-packages//')
 singularity exec ${SIMG} genericpipeline.py ${PWD}/${PARSET} -d -c sing_pipeline.cfg  > output
 }
 
