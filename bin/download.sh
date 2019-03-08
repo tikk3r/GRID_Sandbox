@@ -27,7 +27,7 @@ function download_files(){
  case "$2" in
     *cal1*) echo "Downloading cal1 files"; dl_cal1 $1 ;;
     *cal2*) echo "Downloading cal_solutions"; dl_cal2 $1 ;;
-    *targ1*) echo "Downloading target1 SB"; dl_cal1 $1  ;;
+    *targ1*) echo "Downloading target1 SB"; dl_targ1 $1  ;;
     *targ2*) echo "Downloading targ1 solutions";dl_targ2 $1 ;;
     *) echo "Unknown Pipeline, Will try to download anyways"; dl_generic $1 ;;
  esac
