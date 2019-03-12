@@ -89,12 +89,12 @@ then
  download_cals $CAL_OBSID
 fi
 
-#if [[ ! -z $( echo $PIPELINE_STEP |grep targ1 ) ]]
-#  then
-#    runtaql 
-#    source /cvmfs/softdrive.nl/lofar_sw/env/current_RMextract.sh 
-#
-#fi
+if [[ ! -z $( echo $PIPELINE_STEP |grep targ1 ) ]]
+  then
+    runtaql 
+    #source /cvmfs/softdrive.nl/lofar_sw/env/current_RMextract.sh 
+
+fi
 
 
 #########
