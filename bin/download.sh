@@ -86,7 +86,7 @@ function dl_targ2(){
    ls 
    for i in `ls *tar`; do tar -xf $i  && rm -rf $i; done
    find . -type d -name "*.uncorr.ms" -exec mv {} ./ \;
-   find . -type d -name "solutions.h5" -exec mv {} ./ \;
+   find . -name "solutions.h5" -exec mv {} ./ \;
    echo "Input directory size:"
    du -hs .
    du -hs scratch
