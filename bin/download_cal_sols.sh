@@ -19,12 +19,12 @@ fi
  else
     exit 23 #exit 23=> solutions do not get downloaded
  fi
- mkdir -p ${RUNDIR}/prefactor/cal_results
+ mkdir -p ${RUNDIR}/prefactor/cal_values
 
- find ${RUNDIR}/Input/ -name "*.h5" -exec mv {} ${RUNDIR}/prefactor/cal_results/ \; 
+ find ${RUNDIR}/Input/ -name "*.h5" -exec mv {} ${RUNDIR}/prefactor/cal_values/ \; 
  cd ${RUNDIR}
 
 echo"Cal_results directory contains:"
-ls ${RUNDIR}/prefactor/cal_results
+ls ${RUNDIR}/prefactor/cal_values
 
 }
