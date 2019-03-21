@@ -111,7 +111,7 @@ echo "+++++++++++++"
 echo "+++++++++++++"
 
 cd $RUNDIR
-
+rm -rf ${RUNDIR}/Input/inspection/*
 start_profile
 
 run_pipeline
