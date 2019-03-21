@@ -84,7 +84,7 @@ du -hs $PWD/Input
 
 replace_dirs            #imported from bin/modify_files.sh
 
-if [[ ! -z ${CAL_OBSID}  ]]
+if [[ ! -z ${CAL_OBSID} || ! -z ${CAL2_SOLUTIONS} ]]
 then
  download_cals $CAL_OBSID
 fi
