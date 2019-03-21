@@ -112,6 +112,7 @@ echo "+++++++++++++"
 
 cd $RUNDIR
 rm -rf ${RUNDIR}/Input/inspection/*
+rm -rf ${JOBDIR}/prefactor/docs/*
 start_profile
 
 run_pipeline
