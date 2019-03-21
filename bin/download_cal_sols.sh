@@ -23,4 +23,8 @@ fi
  find ${RUNDIR}/Input/ -name "*.npy" -exec mv {} ${RUNDIR}/prefactor/cal_results/ \; 
  find ${RUNDIR}/Input/ -name "*.h5" -exec mv {} ${RUNDIR}/prefactor/cal_results/ \; 
  cd ${RUNDIR}
+
+echo"Cal_results directory contains:"
+ls ${RUNDIR}/prefactor/cal_results
+
 }
