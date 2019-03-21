@@ -66,7 +66,7 @@ fi
 setup_run_dir                     #imported from bin/setup_run_dir.sh
 
 print_job_info                  #imported from bin/print_job_info.sh
-
+rm -rf ${RUNDIR}/prefactor/docs/*
 echo ""
 echo "---------------------------------------------------------------------------"
 echo "START PROCESSING" $OBSID "SUBBAND:" $STARTSB
