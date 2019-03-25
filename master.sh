@@ -77,6 +77,7 @@ echo "Starting Data Retrieval"
 echo "---------------------------"
 
 download_files srm.txt $PIPELINE_STEP
+find ${RUNDIR}/Input/ -name "*.h5" -exec mv {} ${RUNDIR}/prefactor/cal_values/ \; 
 
 echo "Download finished, list contents"
 ls -l $PWD/Input
