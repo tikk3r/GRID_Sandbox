@@ -66,7 +66,7 @@ fi
 setup_run_dir                     #imported from bin/setup_run_dir.sh
 
 print_job_info                  #imported from bin/print_job_info.sh
-
+rm -rf ${RUNDIR}/prefactor/docs/*
 echo ""
 echo "---------------------------------------------------------------------------"
 echo "START PROCESSING" $OBSID "SUBBAND:" $STARTSB
@@ -78,13 +78,16 @@ echo "---------------------------"
 
 download_files srm.txt $PIPELINE_STEP
 
+mkdir ${RUNDIR}/prefactor/cal_results/
+find ${RUNDIR}/Input/ -name "*.h5" -exec mv {} ${RUNDIR}/prefactor/cal_results/ \; 
+
 echo "Download finished, list contents"
 ls -l $PWD/Input
 du -hs $PWD/Input
 
 replace_dirs            #imported from bin/modify_files.sh
 
-if [[ ! -z ${CAL_OBSID}  ]]
+if [[ ! -z ${CAL_OBSID} || ! -z ${CAL2_SOLUTIONS} ]]
 then
  download_cals $CAL_OBSID
 fi
@@ -111,7 +114,8 @@ echo "+++++++++++++"
 echo "+++++++++++++"
 
 cd $RUNDIR
-
+rm -rf ${RUNDIR}/Input/inspection/*
+rm -rf ${JOBDIR}/prefactor/docs/*
 start_profile
 
 run_pipeline
