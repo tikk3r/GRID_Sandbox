@@ -69,7 +69,8 @@ echo "Starting Data Retrieval"
 echo "---------------------------"
 
 
-download_disc_files srm.txt $PIPELINE_STEP
+#download_disc_files srm.txt $PIPELINE_STEP
+download_cygx_files srm.txt $PIPELINE_STEP
 
 echo "Download finished, list contents"
 ls -l $PWD
@@ -84,7 +85,8 @@ start_profile
 
 #python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running'
 singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running'
-run_disc_pipeline
+#run_disc_pipeline
+run_cygx_pipeline
 stop_profile
 
 #####################
@@ -101,7 +103,8 @@ stop_profile
 #wait
 
 save_plots
-upload_disc_results
+#upload_disc_results
+upload_cygx_results
 
 cleanup 
 
