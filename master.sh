@@ -41,7 +41,7 @@ trap cleanup EXIT
 #Initialize the environment
 ############################
 
-#setup_LOFAR_env $LOFAR_PATH      ##Imported from setup_LOFAR_env.sh
+setup_LOFAR_env $LOFAR_PATH      ##Imported from setup_LOFAR_env.sh
 #source /cvmfs/softdrive.nl/lofar_sw/wsclean/wsclean-2.6/init_env.sh
 #source /cvmfs/softdrive.nl/lofar_sw/env/losoto_2.0.sh
 #export PATH=/cvmfs/softdrive.nl/lofar_sw/losoto/2.0/bin/losoto:$PATH
