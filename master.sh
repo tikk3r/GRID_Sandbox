@@ -54,7 +54,7 @@ if [[ -z "$SCRIPT" ]]; then
     exit 3  #exit 3=> Parset doesn't exist                                                               
 fi
 
-print_worker_info                      ##Imported from bin/print_info
+#print_worker_info                      ##Imported from bin/print_info
 
 setup_disc_run_dir                     #imported from bin/setup_run_dir.sh
 
