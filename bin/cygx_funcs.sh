@@ -2,8 +2,7 @@
 function download_cygx_files(){
 
  case "${PIPELINE_STEP}" in
-    #cygx_cal1) echo "downloading file for cygx_cal1 step"; download_files $1 ;;
-    cygx_cal1) echo "downloading file for cygx_cal1 step";  echo "skip";;
+    cygx_cal1) echo "downloading file for cygx_cal1 step"; download_files $1 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
  esac
 }

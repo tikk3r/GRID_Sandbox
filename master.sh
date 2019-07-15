@@ -70,7 +70,7 @@ echo "Starting Data Retrieval"
 echo "---------------------------"
 
 #download_disc_files srm.txt $PIPELINE_STEP
-#download_cygx_files srm.txt $PIPELINE_STEP
+download_cygx_files srm.txt $PIPELINE_STEP
 
 echo "Download finished, list contents"
 ls -l $PWD
