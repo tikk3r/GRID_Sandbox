@@ -55,9 +55,9 @@ function upload_cygx_cal1(){
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
     find . -name instrument |xargs tar -cvf results.tar
-    find *MS.cfa/ANTENNA |xargs tar -rvf results.tar
-    find *MS.cfa/FIELD |xargs tar -rvf results.tar
-    find *MS.cfa/sky |xargs tar -rvf results.tar 
+    find *MS.fac/ANTENNA |xargs tar -rvf results.tar
+    find *MS.fac/FIELD |xargs tar -rvf results.tar
+    find *MS.fac/sky |xargs tar -rvf results.tar 
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/cal1_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
