@@ -25,8 +25,8 @@ function run_cygx_pipeline(){
     echo "--------------------------------"
     echo ""
 
-    python ${SCRIPT}
-    #singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python ${SCRIPT}
+    #python ${SCRIPT}
+    singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python ${SCRIPT}
 
     echo ""
     echo "--------------------------------"
