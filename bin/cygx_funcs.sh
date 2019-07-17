@@ -27,8 +27,7 @@ function run_cygx_pipeline(){
 
     #python ${SCRIPT}
     #singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python ${SCRIPT}
-    singularity pull shub://tikk3r/lofar-grid-hpccloud:lofar 
-    singularity exec shub://tikk3r/lofar-grid-hpccloud:lofar python ${SCRIPT}
+    singularity exec /cvmfs/softdrive.nl/kimberly/tikk3r-lofar-grid-hpccloud-master-lofar.simg python ${SCRIPT}
 
     echo ""
     echo "--------------------------------"
