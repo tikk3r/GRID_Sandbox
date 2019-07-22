@@ -33,9 +33,9 @@ function run_cygx_pipeline(){
     echo ${SINGULARITYENV_PATH}
     echo ${SINGULARITYENV_PYTHONPATH}
     echo ${SINGULARITYENV_LD_LIBRARY_PATH}
-    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo \$PATH
-    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo \$PYTHONPATH
-    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo \$LD_LIBRARY_PATH
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${PATH}
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${PYTHONPATH}
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${LD_LIBRARY_PATH}
     singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg python ${SCRIPT}
 
     echo ""
