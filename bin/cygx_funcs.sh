@@ -30,6 +30,12 @@ function run_cygx_pipeline(){
     #singularity exec /cvmfs/softdrive.nl/kimberly/tikk3r-lofar-grid-hpccloud-master-lofar.simg python ${SCRIPT}
 
     source /cvmfs/softdrive.nl/kimberly/init_dlofar_3_2_17.sh 
+    echo ${SINGULARITYENV_PATH}
+    echo ${SINGULARITYENV_PYTHONPATH}
+    echo ${SINGULARITYENV_LD_LIBRARY_PATH}
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo \$PATH
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo \$PYTHONPATH
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo \$LD_LIBRARY_PATH
     singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg python ${SCRIPT}
 
     echo ""
