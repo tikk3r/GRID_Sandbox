@@ -29,20 +29,8 @@ function run_cygx_pipeline(){
     #singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python ${SCRIPT}
     #singularity exec /cvmfs/softdrive.nl/kimberly/tikk3r-lofar-grid-hpccloud-master-lofar.simg python ${SCRIPT}
 
-    export INSTALLDIR=/opt
-    source $INSTALLDIR/lofar/lofarinit.sh
-    export PYTHONPATH=$INSTALLDIR/RMextract/lib64/python2.7/site-packages/:$INSTALLDIR/lofar/lib64/python2.7/site-packages/:$INSTALLDIR/losoto/lib/python2.7/site-packages/:$INSTALLDIR/lsmtool/lib/python2.7/site-packages/:$INSTALLDIR/pybdsf/lib:$INSTALLDIR/pybdsf/lib64:$INSTALLDIR/python-casacore/lib/python2.7/site-packages/:$INSTALLDIR/python-casacore/lib64/python2.7/site-packages/:$INSTALLDIR/python-casacore/lib/python2.7/site-packages/:$INSTALLDIR/DPPP/lib64/python2.7/site-packages/:$PYTHONPATH
-    export PATH=$INSTALLDIR/aoflagger/bin:$PATH
-    export PATH=$INSTALLDIR/casacore/bin:$PATH
-    export PATH=$INSTALLDIR/DPPP/bin:$PATH
-    export PATH=$INSTALLDIR/dysco/bin:$PATH
-    export PATH=$INSTALLDIR/losoto/bin:$PATH
-    export PATH=$INSTALLDIR/pybdsf/bin:$PATH
-    export PATH=/net/lofar1/data1/sweijen/software/LOFAR/pyrmsynth_lite:$PATH
-    export PATH=$INSTALLDIR/wsclean/bin:$PATH
-    export LD_LIBRARY_PATH=$INSTALLDIR/aoflagger/lib:$INSTALLDIR/armadillo/lib64:$INSTALLDIR/boost/lib:$INSTALLDIR/casacore/lib:$INSTALLDIR/cfitsio/lib:$INSTALLDIR/DPPP/lib:$INSTALLDIR/dysco/lib:$INSTALLDIR/lofar/lib64:$INSTALLDIR/LOFARBeam/lib:$INSTALLDIR/superlu/lib64:$INSTALLDIR/wcslib/:/net/lofar1/data1/sweijen/software/HDF5_1.8/lib:$LD_LIBRARY_PATH
-    python ${SCRIPT}
-
+    source /cvmfs/softdrive.nl/kimberly/init_dlofar_3_2_17.sh 
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg python ${SCRIPT}
 
     echo ""
     echo "--------------------------------"
