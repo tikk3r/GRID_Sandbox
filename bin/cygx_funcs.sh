@@ -1,14 +1,66 @@
 
 function download_cygx_files(){
-
  case "${PIPELINE_STEP}" in
     cygx_cal1) echo "downloading file for cygx_cal1 step"; download_files $1 ;;
+    cygx_cal2) echo ""; dl_cygx_cal2 ;;
+    cygx_trg1) echo "downloading file for cygx_cal1 step"; download_files $1 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
  esac
 }
 
 
+function dl_cygx_cal2{
+    echo "Downloading srm and cal2 instrument tables"
+    download_files $1
+
+    cd ${RUNDIR}/Input
+    cal=${RESULTS_DIR}/${CAL_OBSID}/cal1_SB${STARTSB}.tar
+    globus-url-copy ${cal} cal.tar
+    wait
+    if [[ -e cal.tar ]]
+      then
+        tar -xvf cal.tar
+    else
+        exit 31 #exit 31=> numpy solutions do not get downloaded
+    fi
+    wait
+    ls ${RUNDIR}/Input
+    cd ${RUNDIR}
+}
+
+
 function run_cygx_pipeline(){
+ case "${PIPELINE_STEP}" in
+    cygx_cal1) echo "running script for cygx_cal1 step"; run_cygx_cal1 ;;
+    cygx_cal2) echo "running script for cygx_cal1 step"; run_cygx_step ;;
+    *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
+ esac
+}
+
+
+function run_cygx_step(){
+    python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'launching_pipeline'
+    python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_progress.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} output ${SCRIPT} &    
+
+    ls ${PWD}
+    ls ${RUNDIR}/Input
+
+    echo "Running script $SCRIPT"
+    echo ""
+    echo "--------------------------------"
+    echo ""
+    
+    singularity exec /cvmfs/softdrive.nl/kimberly/tikk3r-lofar-grid-hpccloud-master-lofar.simg python ${SCRIPT}
+
+    echo ""
+    echo "--------------------------------"
+    echo ""
+
+    python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'processing_finished'
+}
+
+
+function run_cygx_cal1(){
     echo ""
     echo "Running script"
     #python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running pipeline'
@@ -49,10 +101,9 @@ function run_cygx_pipeline(){
     echo ""
     echo "--------------------------------"
     echo ""
-    #python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'processing_finished'
-    singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'processing_finished'
+    python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'processing_finished'
+    #singularity exec /cvmfs/softdrive.nl/fsweijen/singularity/lofar.simg python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'processing_finished'
 }
-
 
 
 function upload_cygx_results(){
@@ -62,6 +113,7 @@ function upload_cygx_results(){
 
     case "${PIPELINE_STEP}" in
       cygx_cal1) upload_cygx_cal1 ;;
+      cygx_cal2) upload_cygx_cal2 ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
     esac
 }
@@ -69,14 +121,24 @@ function upload_cygx_results(){
 
 function upload_cygx_cal1(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
-    #cd ${RUNDIR}/Output
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
-    find . -name instrument*.h5 |xargs tar -cvf results.tar
-    find *fits |xargs tar -rvf results.tar 
+    find . -name *.MS.fac |xargs tar -cvf results.tar
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/cal1_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    cd ${RUNDIR}
+}
+
+
+function upload_cygx_cal2(){
+    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
+    find . -name instrument*h5 |xargs tar -cvf results.tar
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/cal2_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     cd ${RUNDIR}
 }
 
