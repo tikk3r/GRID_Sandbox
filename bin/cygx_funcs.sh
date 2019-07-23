@@ -30,17 +30,21 @@ function run_cygx_pipeline(){
     #singularity exec /cvmfs/softdrive.nl/kimberly/tikk3r-lofar-grid-hpccloud-master-lofar.simg python ${SCRIPT}
 
     source /cvmfs/softdrive.nl/kimberly/init_dlofar_3_2_17.sh 
-    echo ${SINGULARITYENV_PATH}
+    echo ${SPATH}
     echo ${SINGULARITYENV_PYTHONPATH}
-    echo ${SINGULARITYENV_LD_LIBRARY_PATH}
+    echo ${SINGULARITYENV_PREPEND_PATH}
+    echo ${SINGULARITYENV_PREPEND_LD_LIBRARY_PATH}
     echo "path"
-    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${PATH}
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${SPATH}
     echo "python path"
-    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${PYTHONPATH}
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${SINGULARITY_PYTHONPATH}
+    echo "prepend_path"
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${SINGULARITYENV_PREPEND_PATH}
     echo "library path"
-    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${LD_LIBRARY_PATH}
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${SINGULARITYENV_PREPEND_LD_LIBRARY_PATH}
     echo "start script"
-    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg python ${SCRIPT}
+    #singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg python ${SCRIPT}
+    singularity exec -B /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg env LD_LIBRARY_PATH=$SINSTALLDIR/aoflagger/lib:$SINSTALLDIR/armadillo/lib64:$SINSTALLDIR/boost/lib:$SINSTALLDIR/casacore/lib:$SINSTALLDIR/cfitsio/lib:$SINSTALLDIR/DPPP/lib:$SINSTALLDIR/dysco/lib:$SINSTALLDIR/lofar/lib64:$SINSTALLDIR/LOFARBeam/lib:$SINSTALLDIR/superlu/lib64:$SINSTALLDIR/wcslib/ python ${SCRIPT}
 
     echo ""
     echo "--------------------------------"
