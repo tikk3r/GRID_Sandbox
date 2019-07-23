@@ -14,7 +14,7 @@ function dl_cygx_cal2(){
     download_files $1
 
     cd ${RUNDIR}/Input
-    cal=${RESULTS_DIR}/${CAL_OBSID}/cal1_SB${STARTSB}.tar
+    cal=${RESULTS_DIR}/${OBSID}/cal1_SB${STARTSB}.tar
     globus-url-copy ${cal} cal.tar
     wait
     if [[ -e cal.tar ]]
