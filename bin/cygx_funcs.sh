@@ -44,7 +44,7 @@ function run_cygx_pipeline(){
     singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg echo ${SINGULARITYENV_PREPEND_LD_LIBRARY_PATH}
     echo "start script"
     #singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg python ${SCRIPT}
-    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg env LD_LIBRARY_PATH=$SINSTALLDIR/aoflagger/lib:$SINSTALLDIR/armadillo/lib64:$SINSTALLDIR/boost/lib:$SINSTALLDIR/casacore/lib:$SINSTALLDIR/cfitsio/lib:$SINSTALLDIR/DPPP/lib:$SINSTALLDIR/dysco/lib:$SINSTALLDIR/lofar/lib64:$SINSTALLDIR/LOFARBeam/lib:$SINSTALLDIR/superlu/lib64:$SINSTALLDIR/wcslib/ python ${SCRIPT}
+    singularity exec /cvmfs/softdrive.nl/kimberly/dlofar_3_2_17.simg env LD_LIBRARY_PATH=$SINSTALLDIR/aoflagger/lib:$SINSTALLDIR/armadillo/lib64:$SINSTALLDIR/boost/lib:$SINSTALLDIR/casacore/lib:$SINSTALLDIR/cfitsio/lib:$SINSTALLDIR/DPPP/lib:$SINSTALLDIR/dysco/lib:$SINSTALLDIR/lofar/lib:$SINSTALLDIR/LOFARBeam/lib:$SINSTALLDIR/superlu/lib64:$SINSTALLDIR/wcslib/lib/ python ${SCRIPT}
 
     echo ""
     echo "--------------------------------"
