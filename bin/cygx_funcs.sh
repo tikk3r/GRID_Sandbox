@@ -9,7 +9,7 @@ function download_cygx_files(){
 }
 
 
-function dl_cygx_cal2{
+function dl_cygx_cal2(){
     echo "Downloading srm and cal2 instrument tables"
     download_files $1
 
