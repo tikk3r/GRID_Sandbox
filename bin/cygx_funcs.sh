@@ -44,7 +44,8 @@ function dl_cygx_trg2(){
     wait
 
     let NUM=240
-    CALSB=`expr ${STARTSB} - ${NUM}`
+    i=`expr ${STARTSB} - ${NUM}`
+    CALSB=$(seq -f "%03g" $i $i)
     echo ${CALSB}
     cal=${RESULTS_DIR}/${OBSID}/cal2_SB${CALSB}.tar
     globus-url-copy ${cal} cal.tar
