@@ -188,7 +188,7 @@ function upload_cygx_trg2(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
-    find . -name *.MS.f.sub |xargs tar -cvf results.tar
+    find . -name *.MS.fsub |xargs tar -cvf results.tar
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg2_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
