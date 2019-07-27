@@ -5,6 +5,8 @@ function download_cygx_files(){
     cygx_cal2) echo "downloading file for cygx_cal2 step"; dl_cygx_cal2 ;;
     cygx_trg1) echo "downloading file for cygx_trg1 step"; download_files $1 ;;
     cygx_trg2) echo "downloading file for cygx_trg2 step"; dl_cygx_trg2 $1 ;;
+    cygx_trg3) echo "downloading file for cygx_trg2 step"; dl_cygx_trg3 $1 ;;
+    cygx_trg4) echo "downloading file for cygx_trg2 step"; dl_cygx_trg4 $1 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
  esac
 }
@@ -63,12 +65,55 @@ function dl_cygx_trg2(){
     cd ${RUNDIR}
 }
 
+
+function dl_cygx_trg3(){
+    echo "Downloading trg1 ms and cal2 instrument tables"
+
+    cd ${RUNDIR}/Input
+    trg=${RESULTS_DIR}/${OBSID}/trg2_SB${STARTSB}.tar
+    globus-url-copy ${trg} trg.tar
+    wait
+    if [[ -e trg.tar ]]
+      then
+        tar -xvf trg.tar
+    else
+        exit 31 #exit 31=> numpy solutions do not get downloaded
+    fi
+    wait
+
+    ls ${RUNDIR}/Input
+    cd ${RUNDIR}
+}
+
+
+function dl_cygx_trg4(){
+    echo "Downloading trg1 ms and cal2 instrument tables"
+
+    cd ${RUNDIR}/Input
+    trg=${RESULTS_DIR}/${OBSID}/trg3_SB${STARTSB}.tar
+    globus-url-copy ${trg} trg.tar
+    wait
+    if [[ -e trg.tar ]]
+      then
+        tar -xvf trg.tar
+    else
+        exit 31 #exit 31=> numpy solutions do not get downloaded
+    fi
+    wait
+
+    ls ${RUNDIR}/Input
+    cd ${RUNDIR}
+}
+
+
 function run_cygx_pipeline(){
  case "${PIPELINE_STEP}" in
     cygx_cal1) echo "running script for cygx_cal1 step"; run_cygx_step1 ;;
     cygx_cal2) echo "running script for cygx_cal1 step"; run_cygx_step ;;
     cygx_trg1) echo "running script for cygx_cal1 step"; run_cygx_step1 ;;
     cygx_trg2) echo "running script for cygx_cal1 step"; run_cygx_step ;;
+    cygx_trg3) echo "running script for cygx_cal1 step"; run_cygx_step ;;
+    cygx_trg4) echo "running script for cygx_cal1 step"; run_cygx_step ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
  esac
 }
@@ -143,6 +188,8 @@ function upload_cygx_results(){
       cygx_cal2) upload_cygx_cal2 ;;
       cygx_trg1) upload_cygx_trg1 ;;
       cygx_trg2) upload_cygx_trg2 ;;
+      cygx_trg3) upload_cygx_trg3 ;;
+      cygx_trg4) upload_cygx_trg4 ;;
       *) echo ""; echo "Can't find PIPELINE type, will tar and upload everything in the Uploads folder "; echo ""; generic_upload ;;
     esac
 }
@@ -184,6 +231,7 @@ function upload_cygx_trg1(){
     cd ${RUNDIR}
 }
 
+
 function upload_cygx_trg2(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
 
@@ -195,4 +243,28 @@ function upload_cygx_trg2(){
     cd ${RUNDIR}
 }
 
+
+function upload_cygx_trg3(){
+    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
+    find . -name *.MS.fsub.cal |xargs tar -cvf results.tar
+    find . -name "*fits" |xargs tar -rvf results.tar
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg2_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    cd ${RUNDIR}
+}
+
+
+function upload_cygx_trg4(){
+    uberftp -mkdir ${RESULTS_DIR}/${OBSID}
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
+    find . -name "*fits" |xargs tar -cvf results.tar
+
+    python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg2_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    cd ${RUNDIR}
+}
 
