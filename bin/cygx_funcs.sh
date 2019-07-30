@@ -4,9 +4,9 @@ function download_cygx_files(){
     cygx_cal1) echo "downloading file for cygx_cal1 step"; download_files $1 ;;
     cygx_cal2) echo "downloading file for cygx_cal2 step"; dl_cygx_cal2 ;;
     cygx_trg1) echo "downloading file for cygx_trg1 step"; download_files $1 ;;
-    cygx_trg2) echo "downloading file for cygx_trg2 step"; dl_cygx_trg2 $1 ;;
-    cygx_trg3) echo "downloading file for cygx_trg2 step"; dl_cygx_trg3 $1 ;;
-    cygx_trg4) echo "downloading file for cygx_trg2 step"; dl_cygx_trg4 $1 ;;
+    cygx_trg2) echo "downloading file for cygx_trg2 step"; dl_cygx_trg2 ;;
+    cygx_trg3) echo "downloading file for cygx_trg2 step"; dl_cygx_trg3 ;;
+    cygx_trg4) echo "downloading file for cygx_trg2 step"; dl_cygx_trg4 ;;
     *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
  esac
 }
@@ -114,7 +114,7 @@ function run_cygx_pipeline(){
     cygx_trg2) echo "running script for cygx_cal1 step"; run_cygx_step ;;
     cygx_trg3) echo "running script for cygx_cal1 step"; run_cygx_step ;;
     cygx_trg4) echo "running script for cygx_cal1 step"; run_cygx_step ;;
-    *) echo "Unsupported pipeline, nothing downloaded"; exit 20;;
+    *) echo "Unsupported pipeline, nothing run"; exit 20;;
  esac
 }
 
