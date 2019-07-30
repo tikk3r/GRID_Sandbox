@@ -252,7 +252,7 @@ function upload_cygx_trg3(){
     find . -name "*fits" |xargs tar -rvf results.tar
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
-    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg2_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg3_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     cd ${RUNDIR}
 }
 
@@ -264,7 +264,7 @@ function upload_cygx_trg4(){
     find . -name "*fits" |xargs tar -cvf results.tar
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
-    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg2_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
+    globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg4_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
     cd ${RUNDIR}
 }
 
