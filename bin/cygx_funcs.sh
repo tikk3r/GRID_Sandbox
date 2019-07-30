@@ -46,7 +46,7 @@ function dl_cygx_trg2(){
     wait
 
     let NUM=240
-    i=`expr ${STARTSB} - ${NUM}`
+    i=`expr ${STARTSB} + ${NUM}`
     CALSB=$(seq -f "%03g" $i $i)
     echo ${CALSB}
     cal=${RESULTS_DIR}/${OBSID}/cal2_SB${CALSB}.tar
@@ -261,7 +261,7 @@ function upload_cygx_trg4(){
     uberftp -mkdir ${RESULTS_DIR}/${OBSID}
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'archiving results'
-    find . -name "*fits" |xargs tar -cvf results.tar
+    find . -name "*.MS.fsub.cal*fits" |xargs tar -cvf results.tar
 
     python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'uploading results'
     globus-url-copy results.tar ${RESULTS_DIR}/${OBSID}/trg4_SB${STARTSB}.tar || { echo "Upload Failed"; exit 31;} # exit 31 => Upload to storage failed
