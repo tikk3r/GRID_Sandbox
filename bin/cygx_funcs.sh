@@ -67,7 +67,7 @@ function dl_cygx_trg2(){
 
 
 function dl_cygx_trg3(){
-    echo "Downloading trg1 ms and cal2 instrument tables"
+    echo "Downloading trg2 ms"
 
     cd ${RUNDIR}/Input
     trg=${RESULTS_DIR}/${OBSID}/trg2_SB${STARTSB}.tar
@@ -87,7 +87,7 @@ function dl_cygx_trg3(){
 
 
 function dl_cygx_trg4(){
-    echo "Downloading trg1 ms and cal2 instrument tables"
+    echo "Downloading trg3 ms"
 
     cd ${RUNDIR}/Input
     trg=${RESULTS_DIR}/${OBSID}/trg3_SB${STARTSB}.tar
