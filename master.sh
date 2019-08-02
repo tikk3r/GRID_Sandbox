@@ -83,7 +83,6 @@ du -hs $PWD
 
 #start_profile
 
-python  ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'running'
 #run_disc_pipeline
 run_cygx_pipeline
 

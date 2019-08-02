@@ -14,6 +14,7 @@ function download_cygx_files(){
 
 function dl_cygx_cal2(){
     echo "Downloading cal1 ms"
+    python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'downloading'
 
     cd ${RUNDIR}/Input
     cal=${RESULTS_DIR}/${OBSID}/cal1_SB${STARTSB}.tar
@@ -32,6 +33,7 @@ function dl_cygx_cal2(){
 
 function dl_cygx_trg2(){
     echo "Downloading trg1 ms and cal2 instrument tables"
+    python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'downloading'
 
     cd ${RUNDIR}/Input
     trg=${RESULTS_DIR}/${OBSID}/trg1_SB${STARTSB}.tar
@@ -68,6 +70,7 @@ function dl_cygx_trg2(){
 
 function dl_cygx_trg3(){
     echo "Downloading trg2 ms"
+    python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'downloading'
 
     cd ${RUNDIR}/Input
     trg=${RESULTS_DIR}/${OBSID}/trg2_SB${STARTSB}.tar
@@ -88,6 +91,7 @@ function dl_cygx_trg3(){
 
 function dl_cygx_trg4(){
     echo "Downloading trg3 ms"
+    python ${JOBDIR}/GRID_PiCaS_Launcher/update_token_status.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} 'downloading'
 
     cd ${RUNDIR}/Input
     trg=${RESULTS_DIR}/${OBSID}/trg3_SB${STARTSB}.tar
