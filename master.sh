@@ -95,7 +95,7 @@ fi
 if [[ ! -z $( echo $PIPELINE_STEP |grep targ1 ) ]]
   then
     runtaql 
-#    source /cvmfs/softdrive.nl/lofar_sw/env/current_RMextract.sh 
+    source /cvmfs/softdrive.nl/lofar_sw/env/current_RMextract.sh 
 
 fi
 
