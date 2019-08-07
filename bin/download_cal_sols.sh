@@ -20,7 +20,7 @@ fi
     exit 23 #exit 23=> solutions do not get downloaded
  fi
  mkdir -p ${RUNDIR}/prefactor/cal_values
- mv ${RUNDIR}/Input/prefactor/cal_results/* ${RUNDIR}/prefactor/cal_values/
+ cp ${RUNDIR}/Input/prefactor/cal_results/* ${RUNDIR}/prefactor/cal_values/
 
  find ${RUNDIR}/Input/ -name "*.h5" -exec mv {} ${RUNDIR}/prefactor/cal_values/ \; 
  cd ${RUNDIR}
