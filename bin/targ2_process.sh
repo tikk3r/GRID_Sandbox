@@ -2,6 +2,7 @@
 
 function runtaql(){
 
+    ls ${RUNDIR}/Input/
     echo "running taql on "$( ls -d ${RUNDIR}/Input/*${OBSID}*SB*  )"/SPECTRAL_WINDOW"
     FREQ=$( singularity exec -B $PWD $SIMG echo "select distinct REF_FREQUENCY from $( ls -d ${RUNDIR}/Input/*${OBSID}*SB* )::SPECTRAL_WINDOW"| singularity exec -B $PWD $SIMG taql | tail -n 2 | head -n 1)
     export ABN=$( python  update_token_freq.py ${PICAS_DB} ${PICAS_USR} ${PICAS_USR_PWD} ${TOKEN} ${FREQ} )
